@@ -5,7 +5,6 @@ public class RoomDescriptions {
         String room1(){
             return "the room is filled with tomatoes";
         }
-
         String room2(){
             return "the room is filled with potatoes";
         }

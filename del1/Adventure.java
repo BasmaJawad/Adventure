@@ -5,42 +5,14 @@ import java.util.Scanner;
 import static java.lang.Runtime.getRuntime;
 
 public class Adventure {
-  Room currentRoom;
-  char direction;
+  private Room winnerRoom;
+  private Room currentRoom;
+  private char direction;
+  private boolean playerWon;
   Scanner in = new Scanner(System.in);
 
 
-  public static void main(String[] args) {
-    new Adventure().go();
-  }
-
-  void go() {
-
-    Room room1 = new Room("Room One", "This room 1");
-    Room room2 = new Room("Room Two", "This room 2");
-    Room room3 = new Room("Room Three", "This room 3");
-    Room room4 = new Room("Room Four", "This room 4");
-    Room room5 = new Room("Room Five", "This room 5");
-    Room room6 = new Room("Room Six", "This room 6");
-    Room room7 = new Room("Room Seven", "This room 7");
-    Room room8 = new Room("Room Eight", "This room 8");
-    Room room9 = new Room("Room nine", "This room 9");
-
-    room1.setRooms(null, room4, null, room2);
-    room2.setRooms(null, null, room1, room3);
-    room3.setRooms(null, room6, room2, null);
-    room4.setRooms(room1, room7, null, null);
-    room5.setRooms(null, room8, null, null);
-    room6.setRooms(room3, room9, null, null);
-    room7.setRooms(room4, null, null, room8);
-    room8.setRooms(room5, null, room7, room9);
-    room9.setRooms(room6, null, room8, null);
-
-    setCurrentRoom(room1);
-
-    typeDirection();
-  }
-
+  //Retning
   public void setDirection(char direction) {
     this.direction = direction;
   }
@@ -49,6 +21,19 @@ public class Adventure {
     return direction;
   }
 
+  public void setPlayerWon(boolean playerWon) {
+    this.playerWon = playerWon;
+  }
+
+  public void setWinnerRoom(Room winnerRoom) {
+    this.winnerRoom = winnerRoom;
+  }
+
+  public Room getWinnerRoom() {
+    return winnerRoom;
+  }
+
+  //Nuværende rum
   public void setCurrentRoom(Room currentRoom) {
     this.currentRoom = currentRoom;
   }
@@ -57,54 +42,74 @@ public class Adventure {
     return currentRoom;
   }
 
-  void typeDirection() {
-    String input;
-    System.out.print("Type direction or look around: ");
-    input = in.nextLine();
+  //Bruger handling
+  void userAction() {
 
-    switch (input.toLowerCase()) {
-      case "west", "go west", "w":
-        setDirection('W');
-        moveRoom();
-        break;
-      case "east", "go east", "e":
-        setDirection('E');
-        moveRoom();
-        break;
-      case "south", "go south", "s":
-        setDirection('S');
-        moveRoom();
-        break;
-      case "north", "go north", "n":
-        setDirection('N');
-        moveRoom();
-        break;
-      case "look", "look around":
-        System.out.println("The user looked around and saw: " + getCurrentRoom().getRoomDescription());
-        break;
-      case "exit":
-        exitFunction();
-      default:
-        typeDirection();
+    while(playerWon == false) {
+      String input;
+      System.out.print("\nType direction or look around: ");
+      input = in.nextLine();
+
+      switch (input.toLowerCase()) {
+        case "west", "go west", "w":
+          setDirection('W');
+          moveRoom();
+          break;
+        case "east", "go east", "e":
+          setDirection('E');
+          moveRoom();
+          break;
+        case "south", "go south", "s":
+          setDirection('S');
+          moveRoom();
+          break;
+        case "north", "go north", "n":
+          setDirection('N');
+          moveRoom();
+          break;
+        case "look", "look around", "l":
+          System.out.println("You are standing in \033[1;97m" + getCurrentRoom().getName() + "\033[0m");
+          System.out.println(getCurrentRoom().getRoomDescription() + ".");
+          break;
+        case "help", "h":
+          printCommand();
+          break;
+        case "exit":
+          exitFunction();
+        default:
+          userAction();
+      }
+      playerWon();
     }
-    typeDirection();
+  }
+
+  void printCommand() {
+    System.out.println("Game controls:\n" +
+        "Move direction type 'North', 'South', 'West' or 'East'\n" +
+        "Get information type 'Look' or 'Help'\n" +
+        "To end game type 'Exit'");
   }
 
   void userOutput() {
-    switch (getDirection()) {
+    switch (direction) {
       case 'W':
-        System.out.println("The user went west.");
+        System.out.println("The user went\033[1;97m west.\033[0m");
         break;
       case 'E':
-        System.out.println("The user went east.");
+        System.out.println("The user went\033[1;97m east.\033[0m");
         break;
       case 'S':
-        System.out.println("The user went south.");
+        System.out.println("The user went\033[1;97m south.\033[0m");
         break;
       case 'N':
-        System.out.println("The user went north.");
+        System.out.println("The user went\033[1;97m north.\033[0m");
         break;
     }
+    enteredRoom();
+  }
+
+  void enteredRoom(){
+    System.out.println("You have entered: " + getCurrentRoom().getName() + ".");
   }
 
   public void moveRoom() {
@@ -113,6 +118,13 @@ public class Adventure {
     } else {
       setCurrentRoom(getCurrentRoom().getRooms(direction));
       userOutput();
+    }
+  }
+
+  public void playerWon() {
+    if (getCurrentRoom() == getWinnerRoom()) {
+      System.out.println("The player has won!");
+      playerWon = true;
     }
   }
 

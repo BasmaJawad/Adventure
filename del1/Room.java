@@ -4,14 +4,7 @@ public class Room {
   private String name;
   private String roomDescription;
 
-  private Room north;
-  private Room south;
-  private Room west;
-  private Room east;
-
-  Room() {
-
-  }
+  private Room north, south, west, east;
 
   Room(String name, String roomDescription) {
     setName(name);
@@ -43,6 +36,10 @@ public class Room {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public void setRoomDescription(String roomDescription) {
