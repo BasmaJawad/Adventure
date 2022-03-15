@@ -12,7 +12,7 @@ public class AdventureRun {
     new del1.AdventureRun().go();
   }
 
-  void go() {
+  void go() { //Create 9 new rooms with a name and description
     Room room1 = new Room("Room One", D.room1());
     Room room2 = new Room("Room Two", D.room2());
     Room room3 = new Room("Room Three", D.room3());
