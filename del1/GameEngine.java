@@ -4,30 +4,30 @@ import java.util.Scanner;
 
 public class GameEngine {
     private boolean playAgain;
-    private TheGame gameControl = new TheGame();
+    private TheGame theGame = new TheGame();
     private Map map = new Map();
 
 
     void startGame() {
         do {
             createGame();
-            gameControl.userAction();
+            theGame.userAction();
             changePlayAgain();
         } while (playAgain);
     }
 
     void createGame(){
-        gameControl.setPlayerWon(false);
+        theGame.setPlayerWon(false);
         map.createRooms();
-        gameControl.setWinnerRoom(map.getRoom5());
-        gameControl.setCurrentRoom(map.getRoom1());
-        gameControl.getUserInterface().printIntroduction(gameControl.getCurrentRoom());
+        theGame.setWinnerRoom(map.getRoom5());
+        theGame.setCurrentRoom(map.getRoom1());
+        theGame.getUserInterface().printIntroduction(theGame.getCurrentRoom());
     }
 
     void changePlayAgain() {
         Scanner in = new Scanner(System.in);
         String input;
-        gameControl.getUserInterface().playAgain();
+        theGame.getUserInterface().playAgain();
         input = in.nextLine();
         switch(input.toLowerCase()) {
             case "yes", "y":
