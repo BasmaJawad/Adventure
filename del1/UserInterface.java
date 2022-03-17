@@ -1,6 +1,13 @@
 package del1;
 
+import java.util.Scanner;
+
 public class UserInterface {
+    Scanner in = new Scanner(System.in);
+
+    String returnsUserInput() {
+        return in.nextLine();
+    }
 
     void printIntroduction(Room currentRoom) {
         System.out.println("Welcome to 'game missing name'.\n" +

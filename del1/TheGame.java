@@ -1,48 +1,53 @@
 package del1;
 
-import java.util.Scanner;
-
 import static java.lang.Runtime.getRuntime;
 
 public class TheGame {
-  private Room winnerRoom;
-  private Room currentRoom;
-  private char direction;
-  private boolean playerWon;
-  Scanner in = new Scanner(System.in);
-  private UserInterface userInterface = new UserInterface();
+  private Room winnerRoom; //Rykkes til Map class
+  private Room startRoom; //Rykkes til Map class
 
-  public UserInterface getUserInterface(){
-    return userInterface;
+  private boolean playerWon;
+
+  private final Player player = new Player();
+  private final Map map = new Map();
+  private final UserInterface userInterface = new UserInterface();
+
+
+  void createGame(){
+    playerWon = false;
+    map.createRooms();
+    setWinnerRoom(map.getRoom(5));
+    setStartRoom(map.getRoom(1));
+    player.setCurrentRoom(startRoom);
+    userInterface.printIntroduction(player.getCurrentRoom());
   }
 
   //Bruger handling
   void userAction() {
 
     while(playerWon == false) {
-      String input;
       userInterface.typeDirectionOrLookAround();
-      input = in.nextLine();
+      String input = userInterface.returnsUserInput();
 
       switch (input.toLowerCase()) {
         case "west", "go west", "w":
-          setDirection('W');
+          player.setDirection('W');
           moveRoom();
           break;
         case "east", "go east", "e":
-          setDirection('E');
+          player.setDirection('E');
           moveRoom();
           break;
         case "south", "go south", "s":
-          setDirection('S');
+          player.setDirection('S');
           moveRoom();
           break;
         case "north", "go north", "n":
-          setDirection('N');
+          player.setDirection('N');
           moveRoom();
           break;
         case "look", "look around", "l":
-          userInterface.lookAround(currentRoom);
+          userInterface.lookAround(player.getCurrentRoom());
           break;
         case "help", "h":
           userInterface.printCommand();
@@ -57,51 +62,40 @@ public class TheGame {
   }
 
   public void moveRoom() {
-    if(currentRoom.getRooms(direction) == null) {
+    Room currentRoom = player.getCurrentRoom();
+    if(currentRoom.getRooms(player.getDirection()) == null) {
       userInterface.wrongDirection();
     } else {
-      setCurrentRoom(currentRoom.getRooms(direction));
+      player.setCurrentRoom(currentRoom.getRooms(player.getDirection()));
       directionMoved();
     }
   }
 
   void directionMoved() {
-    switch (direction) {
+    switch (player.getDirection()) {
       case 'W':
-        userInterface.direction("west", currentRoom);
+        userInterface.direction("west", player.getCurrentRoom());
         break;
       case 'E':
-        userInterface.direction("east", currentRoom);
+        userInterface.direction("east", player.getCurrentRoom());
         break;
       case 'S':
-        userInterface.direction("south", currentRoom);
+        userInterface.direction("south", player.getCurrentRoom());
         break;
       case 'N':
-        userInterface.direction("north", currentRoom);
+        userInterface.direction("north", player.getCurrentRoom());
         break;
     }
   }
 
   public void playerWon() {
-    if (currentRoom == getWinnerRoom()) {
+    if (player.getCurrentRoom() == getWinnerRoom()) {
       userInterface.winnerOutput();
       playerWon = true;
     }
   }
 
-  //Retning
-  public void setDirection(char direction) {
-    this.direction = direction;
-  }
-
-  public char getDirection() {
-    return direction;
-  }
-
-  public void setPlayerWon(boolean playerWon) {
-    this.playerWon = playerWon;
-  }
-
+  //Setters og Getters
   public void setWinnerRoom(Room winnerRoom) {
     this.winnerRoom = winnerRoom;
   }
@@ -110,15 +104,13 @@ public class TheGame {
     return winnerRoom;
   }
 
-  //Nuværende rum
-  public void setCurrentRoom(Room currentRoom) {
-    this.currentRoom = currentRoom;
+  public void setStartRoom(Room startRoom) {
+    this.startRoom = startRoom;
   }
 
-  public Room getCurrentRoom() {
-    return currentRoom;
+  public UserInterface getUserInterface(){
+    return userInterface;
   }
-
 
   void exitFunction(){
     getRuntime().halt(0);
