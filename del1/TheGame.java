@@ -1,4 +1,5 @@
 package del1;
+import java.util.ArrayList;
 
 import static java.lang.Runtime.getRuntime;
 
@@ -19,6 +20,7 @@ public class TheGame {
     setWinnerRoom(map.getRoom(5));
     setStartRoom(map.getRoom(1));
     player.setCurrentRoom(startRoom);
+    map.addItemsToRoomsAtFirst();   //adder items til rooms
     userInterface.printIntroduction(player.getCurrentRoom());
   }
 
@@ -49,6 +51,8 @@ public class TheGame {
         case "look", "look around", "l":
           userInterface.lookAround(player.getCurrentRoom());
           break;
+        case "grab", "g", "pick":
+          //pickUpItem();
         case "help", "h":
           userInterface.printCommand();
           break;

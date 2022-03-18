@@ -1,8 +1,13 @@
 package del1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room {
   private String name;
   private String roomDescription;
+
+  private ArrayList<Item> itemsInRoom = new ArrayList<>();
 
   private Room north, south, west, east;
 
@@ -48,6 +53,16 @@ public class Room {
 
   public String getRoomDescription() {
     return roomDescription;
+  }
+
+  public void setItemsInRoom (Item item){
+    itemsInRoom.add(item);
+  }
+  public void removeItemsInRoom (Item item){
+    itemsInRoom.remove(item);
+  }
+  public ArrayList getItemsInRoom(){
+    return itemsInRoom;
   }
 
 }

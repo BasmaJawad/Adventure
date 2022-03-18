@@ -2,7 +2,6 @@ package del1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Map {
     private final RoomDescriptions roomDescriptions = new RoomDescriptions();
@@ -20,6 +19,11 @@ public class Map {
     private final Room[] roomArray = {room1, room2, room3, room4, room5, room6, room7, room8, room9};
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
+    private final Item healingPotion1 = new Item("healing potion", "magic healing potion");
+    private final Item healingPotion2 = new Item("healing potion", "magic healing potion");
+    private final Item healingPotion3 = new Item("healing potion", "magic healing potion");
+    private final Item healingPotion4 = new Item("healing potion", "magic healing potion");
+
     void createRooms() {
         //             north, south, west, east
         room1.setRooms(null, room4, null, room2);
@@ -31,11 +35,15 @@ public class Map {
         room7.setRooms(room4, null, null, room8);
         room8.setRooms(room5, null, room7, room9);
         room9.setRooms(room6, null, room8, null);
-
-
     }
-
     public Room getRoom(int i) {
         return roomArrayList.get(i - 1);
+    }
+
+    void addItemsToRoomsAtFirst(){
+        room2.setItemsInRoom(healingPotion1);
+        room4.setItemsInRoom(healingPotion2);
+        room6.setItemsInRoom(healingPotion3);
+        room8.setItemsInRoom(healingPotion4);
     }
 }

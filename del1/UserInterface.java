@@ -30,6 +30,7 @@ public class UserInterface {
     void lookAround(Room currentRoom){
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
+        System.out.println("Items in room: " + currentRoom.getItemsInRoom().getItemNameLong);
     }
     void direction (String direction, Room currentRoom){
         System.out.println("The user went\033[1;97m " + direction + ".\033[0m");
