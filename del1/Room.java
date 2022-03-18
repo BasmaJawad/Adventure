@@ -39,6 +39,16 @@ public class Room {
     }
   }
 
+  public void setItemsInRoom (Item item){
+    itemsInRoom.add(item);
+  }
+  public void removeItemsInRoom (Item item){
+    itemsInRoom.remove(item);
+  }
+  public ArrayList getItemsInRoom() {
+    return itemsInRoom;
+  }
+
   public void setName(String name) {
     this.name = name;
   }
@@ -55,14 +65,7 @@ public class Room {
     return roomDescription;
   }
 
-  public void setItemsInRoom (Item item){
-    itemsInRoom.add(item);
-  }
-  public void removeItemsInRoom (Item item){
-    itemsInRoom.remove(item);
-  }
-  public ArrayList getItemsInRoom(){
-    return itemsInRoom;
+
   }
   /*
   String iterateArrayList () {
@@ -78,4 +81,4 @@ public class Room {
     return item.getItemNameLong();
   }
   */
-}
+
