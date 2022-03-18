@@ -30,20 +30,18 @@ public class UserInterface {
     void lookAround(Room currentRoom){
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
-        System.out.println(currentRoom.getItemsInRoom().get(0).getItemNameLong());
 
         int amountOfItemsInRoom = currentRoom.getItemsInRoom().size();
         if (amountOfItemsInRoom > 0){
-            System.out.println("There are these items in the room: ");
+            System.out.print("There are these items in the room:");
+
             for (int i=0; i < amountOfItemsInRoom; i++){
-                //String itemNameLong = currentRoom.getItemsInRoom().get(i).getItemNameLong();
-                //System.out.print(currentRoom.getItemsInRoom().get(i).getItemNameLong());
-
+                String itemNameLong = currentRoom.getItemsInRoom().get(i).getItemNameLong();
+                System.out.print(" " + itemNameLong);
             }
+            System.out.print(".\n");
         } else
-
-        System.out.println("Items in room: " + currentRoom.getItemsInRoom());
-
+            System.out.println("No items");
     }
     void direction (String direction, Room currentRoom){
         System.out.println("The user went\033[1;97m " + direction + ".\033[0m");

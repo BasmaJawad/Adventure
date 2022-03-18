@@ -55,27 +55,15 @@ public class Room {
     return roomDescription;
   }
 
+
   public void setItemsInRoom (Item item){
     itemsInRoom.add(item);
   }
   public void removeItemsInRoom (Item item){
     itemsInRoom.remove(item);
   }
-  public ArrayList getItemsInRoom(){
+  public ArrayList<Item> getItemsInRoom(){
     return itemsInRoom;
   }
-  /*
-  String iterateArrayList () {
 
-    for (int i=0; i<itemsInRoom.size(); i++){
-      Item item = itemsInRoom.get(i);
-      itemNameLong = item.getItemNameLong();
-    }
-    return ;
-  }
-  public String getItemInRoomNameLong(){
-    Item item = itemsInRoom.get(0);
-    return item.getItemNameLong();
-  }
-  */
 }

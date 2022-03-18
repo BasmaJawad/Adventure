@@ -23,18 +23,15 @@ public class Player {
     return playerDirection;
   }
 
+
   public void setItemPlayerCarry(Item item){
     itemsPlayerCarry.add(item);
   }
   public void removeItemPlayerCarry(Item item){
     itemsPlayerCarry.remove(item);
   }
-  public ArrayList getItemsPlayerCarry (){
+  public ArrayList<Item> getItemsPlayerCarry (){
     return itemsPlayerCarry;
-  }
-  public String getItemsPlayerNameLong(){
-    Item item = itemsPlayerCarry.get(0);
-    return item.getItemNameLong();
   }
 
 }
