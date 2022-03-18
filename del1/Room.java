@@ -1,13 +1,13 @@
 package del1;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Room {
   private String name;
   private String roomDescription;
 
   private ArrayList<Item> itemsInRoom = new ArrayList<>();
+  private ArrayList<String> itemNameLong = new ArrayList<>();
 
   private Room north, south, west, east;
 
@@ -64,5 +64,18 @@ public class Room {
   public ArrayList getItemsInRoom(){
     return itemsInRoom;
   }
+  /*
+  String iterateArrayList () {
 
+    for (int i=0; i<itemsInRoom.size(); i++){
+      Item item = itemsInRoom.get(i);
+      itemNameLong = item.getItemNameLong();
+    }
+    return ;
+  }
+  public String getItemInRoomNameLong(){
+    Item item = itemsInRoom.get(0);
+    return item.getItemNameLong();
+  }
+  */
 }

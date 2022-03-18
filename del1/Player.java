@@ -32,5 +32,9 @@ public class Player {
   public ArrayList getItemsPlayerCarry (){
     return itemsPlayerCarry;
   }
+  public String getItemsPlayerNameLong(){
+    Item item = itemsPlayerCarry.get(0);
+    return item.getItemNameLong();
+  }
 
 }
