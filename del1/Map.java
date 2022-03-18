@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-    private Room room;
-    private Item item;
+
+
     private final RoomDescriptions roomDescriptions = new RoomDescriptions();
 
-    private final ArrayList<String> itemName = new ArrayList<String>();
 
     private final Room room1 = new Room("Room One", roomDescriptions.room1);
     private final Room room2 = new Room("Room Two", roomDescriptions.room2);
@@ -23,10 +22,10 @@ public class Map {
     private final Room[] roomArray = {room1, room2, room3, room4, room5, room6, room7, room8, room9};
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
-    private final Item healingPotion1 = new Item("healing potion", "magic healing potion");
-    private final Item healingPotion2 = new Item("healing potion", "magic healing potion");
-    private final Item healingPotion3 = new Item("healing potion", "magic healing potion");
-    private final Item healingPotion4 = new Item("healing potion", "magic healing potion");
+    private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
+    private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
+    private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
+    private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
     void createRooms() {
         //             north, south, west, east
@@ -40,15 +39,17 @@ public class Map {
         room8.setRooms(room5, null, room7, room9);
         room9.setRooms(room6, null, room8, null);
     }
+
+
     public Room getRoom(int i) {
         return roomArrayList.get(i - 1);
     }
 
     void addItemsToRoomsAtFirst(){ //sætter items i et Item arrayList
-        room2.setItemsInRoom(healingPotion1);
-        room2.setItemsInRoom(healingPotion2);
-        room6.setItemsInRoom(healingPotion3);
-        room8.setItemsInRoom(healingPotion4);
+        room5.setItemsInRoom(healingPotion1);
+        room5.setItemsInRoom(healingPotion2);
+        room5.setItemsInRoom(healingPotion3);
+        room5.setItemsInRoom(healingPotion4);
     }
 
 

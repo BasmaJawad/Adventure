@@ -6,8 +6,7 @@ public class Room {
   private String name;
   private String roomDescription;
 
-  private ArrayList<Item> itemsInRoom = new ArrayList<>();
-  private ArrayList<String> itemNameLong = new ArrayList<>();
+  private final ArrayList<Item> itemsInRoom = new ArrayList<>();
 
   private Room north, south, west, east;
 

@@ -1,11 +1,10 @@
 package del1;
-import java.util.ArrayList;
 
 import static java.lang.Runtime.getRuntime;
 
 public class TheGame {
-  private Room winnerRoom; //Rykkes til Map class
-  private Room startRoom; //Rykkes til Map class
+  private Room winnerRoom;
+  private Room startRoom;
 
   private boolean playerWon;
 
@@ -17,8 +16,8 @@ public class TheGame {
   void createGame(){
     playerWon = false;
     map.createRooms();
-    setWinnerRoom(map.getRoom(5));
-    setStartRoom(map.getRoom(1));
+    winnerRoom = map.getRoom(5);
+    startRoom = map.getRoom(1);
     player.setCurrentRoom(startRoom);
     map.addItemsToRoomsAtFirst();   //adder items til rooms
     userInterface.printIntroduction(player.getCurrentRoom());
@@ -57,7 +56,7 @@ public class TheGame {
         case "inventory","inv":
           userInterface.printInventory(player);
           break;
-        case "help", "h":   //Skal opdateres
+        case "help", "h":
           userInterface.printCommand();
           break;
         case "exit", "ex","0":
@@ -83,29 +82,27 @@ public class TheGame {
 
   void directionMoved() {
     switch (player.getDirection()) {
-      case 'W':
-        userInterface.direction("west", player.getCurrentRoom());
-        break;
-      case 'E':
-        userInterface.direction("east", player.getCurrentRoom());
-        break;
-      case 'S':
-        userInterface.direction("south", player.getCurrentRoom());
-        break;
-      case 'N':
-        userInterface.direction("north", player.getCurrentRoom());
-        break;
+      case 'W' -> userInterface.direction("west", player.getCurrentRoom());
+      case 'E' -> userInterface.direction("east", player.getCurrentRoom());
+      case 'S' -> userInterface.direction("south", player.getCurrentRoom());
+      case 'N' -> userInterface.direction("north", player.getCurrentRoom());
     }
   }
 
   public void playerWon() {
-    if (player.getCurrentRoom() == getWinnerRoom()) {
+    if (winnerRoom.getItemsInRoom().size() == 0) {
       userInterface.winnerOutput();
       playerWon = true;
     }
   }
 
   //Setters og Getters
+
+
+  public UserInterface getUserInterface(){
+    return userInterface;
+  }
+
   public void setWinnerRoom(Room winnerRoom) {
     this.winnerRoom = winnerRoom;
   }
@@ -118,8 +115,8 @@ public class TheGame {
     this.startRoom = startRoom;
   }
 
-  public UserInterface getUserInterface(){
-    return userInterface;
+  public Room getStartRoom() {
+    return startRoom;
   }
 
   void exitFunction(){

@@ -1,7 +1,5 @@
 package del1;
 
-import java.util.Scanner;
-
 public class GameEngine {
     private boolean playAgain;
     private final TheGame theGame = new TheGame();
