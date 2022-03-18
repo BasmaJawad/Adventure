@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
+    private Room room;
+    private Item item;
     private final RoomDescriptions roomDescriptions = new RoomDescriptions();
+
+    private final ArrayList<String> itemName = new ArrayList<String>();
 
     private final Room room1 = new Room("Room One", roomDescriptions.room1);
     private final Room room2 = new Room("Room Two", roomDescriptions.room2);
@@ -40,10 +44,12 @@ public class Map {
         return roomArrayList.get(i - 1);
     }
 
-    void addItemsToRoomsAtFirst(){
+    void addItemsToRoomsAtFirst(){ //sætter items i et Item arrayList
         room2.setItemsInRoom(healingPotion1);
-        room4.setItemsInRoom(healingPotion2);
+        room2.setItemsInRoom(healingPotion2);
         room6.setItemsInRoom(healingPotion3);
         room8.setItemsInRoom(healingPotion4);
     }
+
+
 }

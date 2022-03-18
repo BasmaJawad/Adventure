@@ -52,8 +52,12 @@ public class TheGame {
           userInterface.lookAround(player.getCurrentRoom());
           break;
         case "grab", "g", "pick":
-          //pickUpItem();
-        case "help", "h":
+          player.pickUpItem(userInterface);
+          break;
+        case "inventory","inv":
+          userInterface.printInventory(player);
+          break;
+        case "help", "h":   //Skal opdateres
           userInterface.printCommand();
           break;
         case "exit", "ex","0":
@@ -64,6 +68,8 @@ public class TheGame {
       playerWon();
     }
   }
+
+
 
   public void moveRoom() {
     Room currentRoom = player.getCurrentRoom();
