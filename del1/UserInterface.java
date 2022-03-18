@@ -11,16 +11,23 @@ public class UserInterface {
     }
 
     void printIntroduction(Room currentRoom) {
+        System.out.print("  \033[1;97m                                                                                \n" +
+                " _____ ____  _____ _____ _____ _____ _____ _____ _____    _____ _____ _____ _____ \n" +
+                "|  _  |    \\|  |  |   __|   | |_   _|  |  | __  |   __|  |   __|  _  |     |   __|\n" +
+                "|     |  |  |  |  |   __| | | | | | |  |  |    -|   __|  |  |  |     | | | |   __|\n" +
+                "|__|__|____/ \\___/|_____|_|___| |_| |_____|__|__|_____|  |_____|__|__|_|_|_|_____|\n"+
+        "TYPE YOUR NAME: ");
+        String name = in.nextLine();
+        System.out.println("\nWelcome to Adventure Game, " + name +"!\033[0m\n");
         System.out.println("""
-                Welcome to 'game missing name'.
                 You need to get/do 'missing winning scenario'.
-                Type a direction North, South, West or East.
-                Type 'Look around' to get a description of the room.
-                Type 'Grab' to collect items in a room.
-                Type 'Inventory' to see the items you have.
-                Type 'Help' to get the controls of the game.
-                Type 'Exit' to end the game.
-                Current room is:""" + " " + currentRoom.getName());
+                Type a direction \033[1;97mNorth, South, West or East\033[0m.
+                Type \033[1;97m'Look around' \033[0m to get a description of the room.
+                Type \033[1;97m'Grab' \033[0mto collect items in a room.
+                Type \033[1;97m'Inventory' \033[0mto see the items you have.
+                Type \033[1;97m'Help' \033[0mto get the controls of the game.
+                Type \033[1;97m'Exit' \033[0mto end the game.
+                You are Currently standing in:"""  + " \033[1;97m"+ currentRoom.getName()+"\033[0m");
     }
 
     void printCommand() {

@@ -22,7 +22,8 @@ public class Player {
             for (int i = 0; i < itemAmountInRoom; i++) {
               moveItemToPlayerFromRoom(0);
             }
-          } else {
+          }
+          else {
             for (int i = itemAmountInRoom - 1; i >= 0; i--) {
               String shortItemName = currentRoom.getItemsInRoom().get(i).getItemNameShort();
               if (input.toLowerCase().equals(shortItemName)) {
@@ -30,6 +31,9 @@ public class Player {
                 userInterface.lastItemPickedUp(itemsPlayerCarry);
                 i = -1;
               }
+              else
+                System.out.println("Sorry, could not understand");
+              break; //Skal ændres til anden metode der går ud af for-loopet
             }
           }
         }

@@ -98,7 +98,6 @@ public class TheGame {
 
   //Setters og Getters
 
-
   public UserInterface getUserInterface(){
     return userInterface;
   }
