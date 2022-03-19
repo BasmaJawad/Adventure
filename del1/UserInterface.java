@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class UserInterface {
     Scanner in = new Scanner(System.in);
 
+
     String returnsUserInput() {
         return in.nextLine();
     }
@@ -30,6 +31,7 @@ public class UserInterface {
                 You are Currently standing in:"""  + " \033[1;97m"+ currentRoom.getName()+"\033[0m");
     }
 
+
     void printCommand() {
         System.out.println("""
                 Game controls:
@@ -40,11 +42,13 @@ public class UserInterface {
                 To end game type 'Exit'.""");
     }
 
-    void typeDirectionOrLookAround(){
+
+    void typeDirectionOrLookAround() {
         System.out.print("\nType direction or look around: ");
     }
 
-    void lookAround(Room currentRoom){
+
+    void lookAround(Room currentRoom) {
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
 
@@ -63,24 +67,27 @@ public class UserInterface {
             System.out.println("No items in " + currentRoom.getName() + ".");
     }
 
-    void askPickUpItem(){
+
+    void askPickUpItem() {
         System.out.print("Which item do you want to pick up? ");
     }
+
 
     void lastItemPickedUp(ArrayList<Item> itemsPlayerCarry) {
         System.out.print("The user has picked up ");
         System.out.print(itemsPlayerCarry.get(itemsPlayerCarry.size() - 1).getItemNameShort() + ".\n");
     }
 
-    void emptyRoom(){
+
+    void emptyRoom() {
         System.out.println("No items in the room to be picked up.");
     }
 
 
-    void printInventory(Player player){
+    void printInventory(Player player) {
         int playerInvSize = player.getItemsPlayerCarry().size();
 
-        if (playerInvSize > 0){
+        if (playerInvSize > 0) {
             System.out.print("The user is carrying " + player.getItemsPlayerCarry().get(0).getItemNameShort());
             if (playerInvSize > 1) {
                 for (int i = 1; i < player.getItemsPlayerCarry().size(); i++) {
@@ -93,19 +100,23 @@ public class UserInterface {
     }
 
 
-    void direction (String direction, Room currentRoom){
+    void direction (String direction, Room currentRoom) {
         System.out.println("The user went\033[1;97m " + direction + ".\033[0m");
         System.out.println("You have entered: " + currentRoom.getName() + ".");
     }
-    void wrongDirection (){
+
+
+    void wrongDirection () {
         System.out.println("Not possible to move that direction, try again.");
     }
-    void winnerOutput(){
+
+
+    void winnerOutput() {
         System.out.println("The player has won!\n");
     }
-    void playAgain(){
+
+
+    void playAgain() {
         System.out.print("Do you wish to play again, type 'no' or 'yes': ");
     }
-
-
 }

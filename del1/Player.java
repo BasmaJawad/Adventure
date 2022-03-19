@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class Player {
   private Room currentRoom;
-  private char playerDirection;
   private ArrayList<Item> itemsPlayerCarry = new ArrayList<>();
-
+  private char playerDirection;
 
 
   void pickUpItem(UserInterface userInterface) {
@@ -41,11 +40,19 @@ public class Player {
 
   void moveItemToPlayerFromRoom(int num){
     Item itemOnIndexNum = currentRoom.getItemsInRoom().get(num); //Item der bliver fjernet fra currentRoom og tilført til itemsPlayerCarry
-
     itemsPlayerCarry.add(itemOnIndexNum); //Adder en Item fra currentRoom Item liste ud efter et index til spillerens inventory
     currentRoom.getItemsInRoom().remove(itemOnIndexNum); //Fjerner den selv samme item fra currentRoom Item liste
   }
 
+  public void addItemPlayerCarry(Item item){
+    itemsPlayerCarry.add(item);
+  }
+
+  public void removeItemPlayerCarry(Item item){
+    itemsPlayerCarry.remove(item);
+  }
+
+  // Setters og Getters
 
   public void setCurrentRoom(Room currentRoom) {
     this.currentRoom = currentRoom;
@@ -63,17 +70,7 @@ public class Player {
     return playerDirection;
   }
 
-
-  public void setItemPlayerCarry(Item item){
-    itemsPlayerCarry.add(item);
-  }
-
-  public void removeItemPlayerCarry(Item item){
-    itemsPlayerCarry.remove(item);
-  }
-
   public ArrayList<Item> getItemsPlayerCarry (){
     return itemsPlayerCarry;
   }
-
 }

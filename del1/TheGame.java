@@ -3,14 +3,14 @@ package del1;
 import static java.lang.Runtime.getRuntime;
 
 public class TheGame {
+  private final Player player = new Player();
+  private final Map map = new Map();
+  private final UserInterface userInterface = new UserInterface();
+
   private Room winnerRoom;
   private Room startRoom;
 
   private boolean playerWon;
-
-  private final Player player = new Player();
-  private final Map map = new Map();
-  private final UserInterface userInterface = new UserInterface();
 
 
   void createGame(){
@@ -25,7 +25,6 @@ public class TheGame {
 
   //Bruger handling
   void userAction() {
-
     while(playerWon == false) {
       userInterface.typeDirectionOrLookAround();
       String input = userInterface.returnsUserInput();
@@ -68,8 +67,6 @@ public class TheGame {
     }
   }
 
-
-
   public void moveRoom() {
     Room currentRoom = player.getCurrentRoom();
     if(currentRoom.getRooms(player.getDirection()) == null) {
@@ -96,6 +93,10 @@ public class TheGame {
     }
   }
 
+  void exitFunction(){
+    getRuntime().halt(0);
+  }
+
   //Setters og Getters
 
   public UserInterface getUserInterface(){
@@ -118,7 +119,5 @@ public class TheGame {
     return startRoom;
   }
 
-  void exitFunction(){
-    getRuntime().halt(0);
-  }
+
 }

@@ -5,9 +5,7 @@ import java.util.List;
 
 public class Map {
 
-
     private final RoomDescriptions roomDescriptions = new RoomDescriptions();
-
 
     private final Room room1 = new Room("Room One", roomDescriptions.room1);
     private final Room room2 = new Room("Room Two", roomDescriptions.room2);
@@ -27,6 +25,7 @@ public class Map {
     private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
     private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
+
     void createRooms() {
         //             north, south, west, east
         room1.setRooms(null, room4, null, room2);
@@ -40,7 +39,6 @@ public class Map {
         room9.setRooms(room6, null, room8, null);
     }
 
-
     public Room getRoom(int i) {
         return roomArrayList.get(i - 1);
     }
@@ -51,6 +49,4 @@ public class Map {
         room5.setItemsInRoom(healingPotion3);
         room5.setItemsInRoom(healingPotion4);
     }
-
-
 }

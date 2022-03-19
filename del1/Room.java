@@ -3,12 +3,11 @@ package del1;
 import java.util.ArrayList;
 
 public class Room {
+  private Room north, south, west, east;
+  private final ArrayList<Item> itemsInRoom = new ArrayList<>();
   private String name;
   private String roomDescription;
 
-  private final ArrayList<Item> itemsInRoom = new ArrayList<>();
-
-  private Room north, south, west, east;
 
   Room(String name, String roomDescription) {
     setName(name);
@@ -37,6 +36,8 @@ public class Room {
         return null;
     }
   }
+
+
 
   public void setName(String name) {
     this.name = name;

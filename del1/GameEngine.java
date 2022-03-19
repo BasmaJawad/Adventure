@@ -1,8 +1,8 @@
 package del1;
 
 public class GameEngine {
-    private boolean playAgain;
     private final TheGame theGame = new TheGame();
+    private boolean playAgain;
 
 
     void startGame() {
@@ -12,7 +12,6 @@ public class GameEngine {
             changePlayAgain();
         } while (playAgain);
     }
-
 
     void changePlayAgain() {
         theGame.getUserInterface().playAgain();
@@ -29,5 +28,4 @@ public class GameEngine {
         }
         System.out.println();
     }
-
 }
