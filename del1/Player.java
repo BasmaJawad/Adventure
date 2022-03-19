@@ -31,9 +31,6 @@ public class Player {
                 userInterface.lastItemPickedUp(itemsPlayerCarry);
                 i = -1;
               }
-              else
-                System.out.println("Sorry, could not understand");
-              break; //Skal ændres til anden metode der går ud af for-loopet
             }
           }
         }
