@@ -54,10 +54,10 @@ public class TheGame {
           userInterface.lookAround(player.getCurrentRoom());
           break;
         case "grab", "g", "pick":
-          player.pickUpItem(userInterface);
+          player.pickOrDropItem(userInterface, true);
           break;
         case "drop", "d":
-          player.dropItem(userInterface);
+          player.pickOrDropItem(userInterface, false);
           break;
         case "inventory","inv":
           userInterface.printInventory(player);

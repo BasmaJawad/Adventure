@@ -77,15 +77,15 @@ public class UserInterface {
     }
 
 
-    void itemPickedOrDropped(ArrayList<Item> roomOrPlayerInventory, boolean isPicked) {
-        String itemShortName = roomOrPlayerInventory.get(roomOrPlayerInventory.size() - 1).getItemNameShort();
+    void itemPickedOrDropped(String itemShortName, boolean isPicked) {
+        String itemName = itemShortName;
 
-        if (isPicked == true) {
+        if (isPicked) {
             System.out.print("The user has picked up ");
         } else {
             System.out.print("The user has dropped ");
         }
-        System.out.print(itemShortName + ".\n");
+        System.out.print(itemName + ".\n");
     }
 
     void allWasPickedOrDropped(boolean isPicked){
