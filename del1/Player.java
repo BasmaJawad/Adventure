@@ -13,8 +13,8 @@ public class Player {
     UserInterface UI = userInterface;
     ArrayList<Item> inventoryWeTakeFrom = getPlayerOrRoomItemList(isPicked);
     ArrayList<Item> inventoryWeAddToo = getPlayerOrRoomItemList(!isPicked);
-    int itemAmount = inventoryWeTakeFrom.size();
-    if (inventoryWeTakeFrom.size() > 0) {
+    int itemCount = inventoryWeTakeFrom.size();
+    if (itemCount > 0) {
       userChangesItemList(UI, inventoryWeTakeFrom, inventoryWeAddToo, isPicked);
     } else {
       UI.emptyInventory(isPicked);
@@ -31,8 +31,9 @@ public class Player {
 
   public void userChangesItemList(UserInterface UI, ArrayList<Item> inventoryWeTakeFrom, ArrayList<Item> inventoryWeAddToo, boolean isPicked) {
     if (inventoryWeTakeFrom.size() == 1) {
-      String itemShortName = inventoryWeTakeFrom.get(0).getItemNameShort();
-      UI.itemPickedOrDropped(itemShortName, isPicked);
+     // String itemShortName = inventoryWeTakeFrom.get(0).getItemNameShort();
+      String longItemName = inventoryWeTakeFrom.get(0).getItemNameLong();
+      UI.itemPickedOrDropped(longItemName, isPicked);
       addAndRemoveItemFromInventory(0, isPicked);
 
     } else {
@@ -44,8 +45,9 @@ public class Player {
       } else {
         for (int i = inventoryWeTakeFrom.size() - 1; i >= 0; i--) {
           String shortItemName = inventoryWeTakeFrom.get(i).getItemNameShort();
-          if (input.equals(shortItemName)) {
-            UI.itemPickedOrDropped(shortItemName, isPicked);
+          String longItemName = inventoryWeTakeFrom.get(i).getItemNameLong();
+          if (input.equals(shortItemName) || input.equals(longItemName)) {
+            UI.itemPickedOrDropped(longItemName, isPicked); //printer item dropped/picket
             addAndRemoveItemFromInventory(i, isPicked);
             i = -1;
           }

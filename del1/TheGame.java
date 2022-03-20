@@ -54,7 +54,7 @@ public class TheGame {
           userInterface.lookAround(player.getCurrentRoom());
           break;
         case "grab", "g", "pick":
-          player.pickOrDropItem(userInterface, true);
+          player.pickOrDropItem(userInterface, true);  //isPicked = true
           break;
         case "drop", "d":
           player.pickOrDropItem(userInterface, false);
@@ -111,7 +111,6 @@ public class TheGame {
   public void setWinnerRoom(Room winnerRoom) {
     this.winnerRoom = winnerRoom;
   }
-
   public Room getWinnerRoom() {
     return winnerRoom;
   }
@@ -119,10 +118,7 @@ public class TheGame {
   public void setStartRoom(Room startRoom) {
     this.startRoom = startRoom;
   }
-
   public Room getStartRoom() {
     return startRoom;
   }
-
-
 }

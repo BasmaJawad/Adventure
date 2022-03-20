@@ -65,6 +65,7 @@ public class Room {
   public ArrayList<Item> getItemsInRoom(){
     return itemsInRoom;
   }
+
   public void clearRoomInventory(){
     itemsInRoom.clear();
   }

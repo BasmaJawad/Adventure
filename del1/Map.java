@@ -27,9 +27,9 @@ public class Map {
     private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
     private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
-    private final Item weapon1 = new Item("sword", "iron sword");
-    private final Item weapon2 = new Item("axe", "iron axe");
-    private final Item weapon3 = new Item("bow","bow and arrows");
+    private final Item weapon1 = new Item("Sword", "Iron sword");
+    private final Item weapon2 = new Item("Axe", "Iron axe");
+    private final Item weapon3 = new Item("Bow","Bow and arrows");
 
     void createRooms() {
         //             north, south, west, east
