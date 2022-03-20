@@ -147,7 +147,7 @@ public class UserInterface {
     }
 
     void winnerOutput() {
-        System.out.println(userName + " has won the game!\n");
+        System.out.println("You won the game! \n");
     }
 
     void playAgain() {
