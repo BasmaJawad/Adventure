@@ -68,19 +68,38 @@ public class UserInterface {
     }
 
 
-    void askPickUpItem() {
-        System.out.print("Which item do you want to pick up? ");
+    void askPickOrDropItem(boolean isPicked) {
+        if(isPicked){
+            System.out.print("Which item do you want to pick up? ");
+        } else
+            System.out.print("Which item do you want to drop? ");
+
     }
 
 
-    void lastItemPickedUp(ArrayList<Item> itemsPlayerCarry) {
-        System.out.print("The user has picked up ");
-        System.out.print(itemsPlayerCarry.get(itemsPlayerCarry.size() - 1).getItemNameShort() + ".\n");
+    void itemPickedOrDropped(ArrayList<Item> roomOrPlayerInventory, boolean isPicked) {
+        String itemShortName = roomOrPlayerInventory.get(roomOrPlayerInventory.size() - 1).getItemNameShort();
+
+        if (isPicked == true) {
+            System.out.print("The user has picked up ");
+        } else {
+            System.out.print("The user has dropped ");
+        }
+        System.out.print(itemShortName + ".\n");
     }
 
-
-    void emptyRoom() {
-        System.out.println("No items in the room to be picked up.");
+    void allWasPickedOrDropped(boolean isPicked){
+        if (isPicked){
+            System.out.println("The user has picked up everything in the room");
+        } else
+            System.out.println("The user has dropped everything in their inventory");
+    }
+    
+    void emptyInventory(boolean isPicked) {
+        if (isPicked)
+            System.out.println("No items in the room to be picked up.");
+        else
+            System.out.println("No items in player's inventory to be dropped.");
     }
 
 

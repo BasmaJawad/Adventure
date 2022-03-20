@@ -7,41 +7,84 @@ public class Player {
   private ArrayList<Item> itemsPlayerCarry = new ArrayList<>();
   private char playerDirection;
 
-
   void pickUpItem(UserInterface userInterface) {
     int itemAmountInRoom = currentRoom.getItemsInRoom().size();
     if (itemAmountInRoom > 0) {
         if (itemAmountInRoom == 1) {
           moveItemToPlayerFromRoom(0);
-          userInterface.lastItemPickedUp(itemsPlayerCarry);
+          userInterface.itemPickedOrDropped(itemsPlayerCarry, true);
       } else {
-          userInterface.askPickUpItem();
+          userInterface.askPickOrDropItem(true);
           String input = userInterface.returnsUserInput();
+
           if(input.toLowerCase().equals("all")) {
-            for (int i = 0; i < itemAmountInRoom; i++) {
-              moveItemToPlayerFromRoom(0);
-            }
-          }
-          else {
-            for (int i = itemAmountInRoom - 1; i >= 0; i--) {
-              String shortItemName = currentRoom.getItemsInRoom().get(i).getItemNameShort();
-              if (input.toLowerCase().equals(shortItemName)) {
-                moveItemToPlayerFromRoom(i);
-                userInterface.lastItemPickedUp(itemsPlayerCarry);
-                i = -1;
-              }
-            }
+            takeAllItemsFromInventory(userInterface, itemAmountInRoom);
+          } else {
+            searchForSpecificItemInInventory(userInterface, itemAmountInRoom, input);
           }
         }
     } else {
-      userInterface.emptyRoom();
+      userInterface.emptyInventory(true);
     }
   }
 
-  void moveItemToPlayerFromRoom(int num){
-    Item itemOnIndexNum = currentRoom.getItemsInRoom().get(num); //Item der bliver fjernet fra currentRoom og tilført til itemsPlayerCarry
-    itemsPlayerCarry.add(itemOnIndexNum); //Adder en Item fra currentRoom Item liste ud efter et index til spillerens inventory
-    currentRoom.getItemsInRoom().remove(itemOnIndexNum); //Fjerner den selv samme item fra currentRoom Item liste
+  void takeAllItemsFromInventory (UserInterface userInterface, int itemAmountInRoom){
+    for (int i = 0; i < itemAmountInRoom; i++) {
+      moveItemToPlayerFromRoom(0); //indexOfDroppedItem er 0 fordi hver gang der fjernes en, rykkes næste item på nulte plads
+    }
+    userInterface.allWasPickedOrDropped(true);
+  }
+
+  void searchForSpecificItemInInventory(UserInterface userInterface, int itemAmountInRoom, String input){
+    for (int i = itemAmountInRoom - 1; i >= 0; i--) {
+      String shortItemName = currentRoom.getItemsInRoom().get(i).getItemNameShort();
+      if (input.toLowerCase().equals(shortItemName)) {
+        moveItemToPlayerFromRoom(i);
+        userInterface.itemPickedOrDropped(itemsPlayerCarry, true);
+        i = -1;
+      }
+    }
+  }
+  
+  void dropItem (UserInterface userInterface) {
+    int itemAmountPlayerHave = itemsPlayerCarry.size();
+    if (itemAmountPlayerHave > 0) {
+      if (itemAmountPlayerHave == 1) {
+        moveItemToRoomFromPlayer(0);
+        userInterface.itemPickedOrDropped(currentRoom.getItemsInRoom(), false);
+      } else {
+        userInterface.askPickOrDropItem(false);
+        String input = userInterface.returnsUserInput();
+        if (input.toLowerCase().equals("all")) {
+          for (int i = 0; i < itemAmountPlayerHave; i++) {
+            moveItemToRoomFromPlayer(0); //indexOfDroppedItem er 0 fordi hver gang der fjernes en, rykkes næste item på nulte plads
+          }
+          userInterface.allWasPickedOrDropped(false);
+        } else {
+          for (int i = itemAmountPlayerHave - 1; i >= 0; i--) {
+            String shortItemName = itemsPlayerCarry.get(i).getItemNameShort();
+            if (input.toLowerCase().equals(shortItemName)) {
+              moveItemToRoomFromPlayer(i);
+              userInterface.itemPickedOrDropped(currentRoom.getItemsInRoom(), false);
+              i = -1; //bryder ud af for-loopet efter det ønskede item er fundet
+            }
+          }
+        }
+      }
+    } else
+      userInterface.emptyInventory(false);
+  }
+
+  void moveItemToPlayerFromRoom(int indexOfWantedItem){
+    Item wantedItem = currentRoom.getItemsInRoom().get(indexOfWantedItem); //Item der bliver fjernet fra currentRoom og tilført til itemsPlayerCarry
+    itemsPlayerCarry.add(wantedItem); //Adder en Item fra currentRoom Item liste ud efter et index til spillerens inventory
+    currentRoom.getItemsInRoom().remove(wantedItem); //Fjerner den selv samme item fra currentRoom Item liste
+  }
+
+  void moveItemToRoomFromPlayer(int indexOfDroppedItem){
+    Item droppedItem = itemsPlayerCarry.get(indexOfDroppedItem); //Item der bliver fjernet fra spillerens inventory og tilført til currentRoom
+    currentRoom.getItemsInRoom().add(droppedItem); //Adder en Item til currentRoom fra spillerens inventory
+    itemsPlayerCarry.remove(droppedItem); //Fjerner den selv samme item fra players inventory
   }
 
   public void addItemPlayerCarry(Item item){
@@ -50,6 +93,10 @@ public class Player {
 
   public void removeItemPlayerCarry(Item item){
     itemsPlayerCarry.remove(item);
+  }
+
+  public void clearPlayerInventory (){
+    itemsPlayerCarry.clear();
   }
 
   // Setters og Getters

@@ -19,6 +19,7 @@ public class GameEngine { // Denne class kontrollerer det overalle game loop og 
         switch(input.toLowerCase()) { // Ud efter String variablen 'input', i lower case, er sat til at være:
             case "yes", "y": // Hvis brugeren svarede ja til spørgsmålet
                 playAgain = true; // Så er "GameEngine" variablen 'playAgain' sat til at være sand
+                theGame.clearItemInventoriesForNewGame();
                 break; // og spillet fortsætter
             case "no", "n": // Hvis brugerens svar er nej,
                 playAgain = false; // så er variablen sat til at være falsk
@@ -28,4 +29,5 @@ public class GameEngine { // Denne class kontrollerer det overalle game loop og 
         }
         System.out.println(); // Printer en tom linje
     }
+
 }

@@ -20,11 +20,16 @@ public class Map {
     private final Room[] roomArray = {room1, room2, room3, room4, room5, room6, room7, room8, room9};
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
+
+
     private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
     private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
     private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
     private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
+    private final Item weapon1 = new Item("sword", "iron sword");
+    private final Item weapon2 = new Item("axe", "iron axe");
+    private final Item weapon3 = new Item("bow","bow and arrows");
 
     void createRooms() {
         //             north, south, west, east
@@ -40,7 +45,7 @@ public class Map {
     }
 
     public Room getRoom(int i) {
-        return roomArrayList.get(i - 1);
+        return roomArrayList.get(i);
     }
 
     void addItemsToRoomsAtFirst(){ //sætter items i et Item arrayList
@@ -48,5 +53,16 @@ public class Map {
         room5.setItemsInRoom(healingPotion2);
         room5.setItemsInRoom(healingPotion3);
         room5.setItemsInRoom(healingPotion4);
+
+        room8.setItemsInRoom(weapon1);
+        room1.setItemsInRoom(weapon2);
+        room4.setItemsInRoom(weapon3);
+    }
+
+    void clearRoomsInventory (){
+        for (int i=0; i<roomArrayList.size(); i++){
+            Room eachRoom = roomArrayList.get(i);
+            eachRoom.clearRoomInventory();
+        }
     }
 }

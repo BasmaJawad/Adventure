@@ -12,15 +12,19 @@ public class TheGame {
 
   private boolean playerWon;
 
-
   void createGame(){
     playerWon = false;
     map.createRooms();
-    winnerRoom = map.getRoom(5);
-    startRoom = map.getRoom(1);
+    winnerRoom = map.getRoom(4);
+    startRoom = map.getRoom(0);
     player.setCurrentRoom(startRoom);
     map.addItemsToRoomsAtFirst();   //adder items til rooms
     userInterface.printIntroduction(player.getCurrentRoom());
+  }
+
+  void clearItemInventoriesForNewGame(){
+    player.clearPlayerInventory();
+    map.clearRoomsInventory();
   }
 
   //Bruger handling
@@ -52,6 +56,9 @@ public class TheGame {
         case "grab", "g", "pick":
           player.pickUpItem(userInterface);
           break;
+        case "drop", "d":
+          player.dropItem(userInterface);
+          break;
         case "inventory","inv":
           userInterface.printInventory(player);
           break;
@@ -60,8 +67,6 @@ public class TheGame {
           break;
         case "exit", "ex","0":
           exitFunction();
-        default:
-          userAction();
       }
       playerWon();
     }
