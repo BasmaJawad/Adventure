@@ -3,9 +3,9 @@ package del1;
 import static java.lang.Runtime.getRuntime;
 
 public class TheGame {
-  private final Player player = new Player();
   private final Map map = new Map();
   private final UserInterface userInterface = new UserInterface();
+  private final Player player = new Player(userInterface);
 
   private Room winnerRoom;
   private Room startRoom;
@@ -54,10 +54,10 @@ public class TheGame {
           userInterface.lookAround(player.getCurrentRoom());
           break;
         case "grab", "g", "pick":
-          player.pickOrDropItem(userInterface, true);  //isPicked = true
+          player.pickOrDropItem(true);  //isPicked = true
           break;
         case "drop", "d":
-          player.pickOrDropItem(userInterface, false);
+          player.pickOrDropItem(false);
           break;
         case "inventory","inv":
           userInterface.printInventory(player);

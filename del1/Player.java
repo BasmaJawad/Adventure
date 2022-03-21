@@ -3,19 +3,22 @@ package del1;
 import java.util.ArrayList;
 
 public class Player {
+  private UserInterface UI;
   private Room currentRoom;
   private ArrayList<Item> itemsPlayerCarry = new ArrayList<>();
   private char playerDirection;
 
 
+  public Player(UserInterface UI) {
+    this.UI = UI;
+  }
 
-  void pickOrDropItem(UserInterface userInterface, boolean isPicked) {
-    UserInterface UI = userInterface;
+  void pickOrDropItem(boolean isPicked) {
     ArrayList<Item> inventoryWeTakeFrom = getPlayerOrRoomItemList(isPicked);
     ArrayList<Item> inventoryWeAddToo = getPlayerOrRoomItemList(!isPicked);
     int itemCount = inventoryWeTakeFrom.size();
     if (itemCount > 0) {
-      userChangesItemList(UI, inventoryWeTakeFrom, inventoryWeAddToo, isPicked);
+      userChangesItemList(inventoryWeTakeFrom, inventoryWeAddToo, isPicked);
     } else {
       UI.emptyInventory(isPicked);
     }
@@ -29,7 +32,7 @@ public class Player {
     }
   }
 
-  public void userChangesItemList(UserInterface UI, ArrayList<Item> inventoryWeTakeFrom, ArrayList<Item> inventoryWeAddToo, boolean isPicked) {
+  public void userChangesItemList(ArrayList<Item> inventoryWeTakeFrom, ArrayList<Item> inventoryWeAddToo, boolean isPicked) {
     if (inventoryWeTakeFrom.size() == 1) {
      // String itemShortName = inventoryWeTakeFrom.get(0).getItemNameShort();
       String longItemName = inventoryWeTakeFrom.get(0).getItemNameLong();
