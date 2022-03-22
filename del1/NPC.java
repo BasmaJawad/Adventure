@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class NPC {
-  private int npcHealth, npcBaseDamage;
-  private ArrayList<Item> npcInventory = new ArrayList<>();
-  private String npcName;
   private Room npcCurrentRoom;
+  private ArrayList<Item> npcInventory = new ArrayList<>();
   private ArrayList<Room> allRoomsInAMap;
+  private Random random = new Random();
+  private String npcName;
+  private int npcHealth, npcBaseDamage;
 
 
   public NPC (ArrayList<Room> allRoomsInAMap){
     setNpcHealth(10);
     setNpcBaseDamage(2);
     setNpcName("Random Thug");
-    // Npc'en skal have et tilfældigt rum tildelt ud fra rummene som et Map holder
-
+    this.allRoomsInAMap = allRoomsInAMap;
+    // Npc'ens currentRoom sættes til et tilfældigt rum tildelt ud fra rummene som et Map holder
+    setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
   }
 
   public NPC (int health, int damage, Item startItem, String name, Room startRoom) {
@@ -28,12 +30,15 @@ public class NPC {
   }
 
   // Skal få fat i et tilfældigt rum i den ArrayListe der holder rum i et Map
-  /*
-  public Room getRandomRoom (ArrayList allRoomsInAMap) {
-    return
+
+  public Room getRandomRoom (ArrayList<Room> allRoomsInAMap) {
+    int roomAmount = allRoomsInAMap.size();
+    int randomNum = random.nextInt(roomAmount);
+    Room randomRoom = allRoomsInAMap.get(randomNum);
+    return randomRoom;
   }
 
-   */
+
 
 
   // Getters og Setters
