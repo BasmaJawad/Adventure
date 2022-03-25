@@ -13,12 +13,11 @@ public class TheGame {
   private boolean playerWon;
 
   void createGame(){
-    playerWon = false;
     map.createRooms();
     winnerRoom = map.getRoom(4);
     startRoom = map.getRoom(0);
-    player.setCurrentRoom(startRoom);
     map.addItemsToRoomsAtFirst();   //adder items til rooms
+    player.resetPlayer(startRoom, true);
     userInterface.printIntroduction(player.getCurrentRoom());
   }
 
@@ -92,10 +91,17 @@ public class TheGame {
   }
 
   public void playerWon() {
-    if (winnerRoom.getItemsInRoom().size() == 0) {
-      userInterface.winnerOutput();
-      playerWon = true;
+    int numOfItems = startRoom.getItemsInRoom().size();
+    for (int i = 0; i < numOfItems; i++) {
+      do {
+        ItemType roomItemType = startRoom.getItemsInRoom().get(i).getItemType();
+        if (roomItemType == ItemType.NONE) {
+          userInterface.winnerOutput();
+          playerWon = true;
+        }
+      } while (!playerWon);
     }
+
   }
 
   void exitFunction(){

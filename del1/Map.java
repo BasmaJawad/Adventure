@@ -21,7 +21,7 @@ public class Map {
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
 
-
+    // Disse skal have en ItemType (enum)
     private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
     private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
     private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");

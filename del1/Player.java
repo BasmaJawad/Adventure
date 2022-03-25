@@ -7,6 +7,8 @@ public class Player {
   private Room currentRoom;
   private ArrayList<Item> itemsPlayerCarry = new ArrayList<>();
   private char playerDirection;
+  private boolean playerWon;
+  private boolean playerLost;
 
 
   public Player(UserInterface UI) {
@@ -37,7 +39,7 @@ public class Player {
      // String itemShortName = inventoryWeTakeFrom.get(0).getItemNameShort();
       String longItemName = inventoryWeTakeFrom.get(0).getItemNameLong();
       UI.itemPickedOrDropped(longItemName, isPicked);
-      addAndRemoveItemFromInventory(0, isPicked);
+      addAndRemoveItemFromInventory(0, inventoryWeTakeFrom,inventoryWeAddToo);
 
     } else {
       UI.askPickOrDropItem(isPicked);
@@ -51,7 +53,7 @@ public class Player {
           String longItemName = inventoryWeTakeFrom.get(i).getItemNameLong().toLowerCase();
           if (input.equals(shortItemName) || input.equals(longItemName)) {
             UI.itemPickedOrDropped(longItemName, isPicked); //printer item dropped/picket
-            addAndRemoveItemFromInventory(i, isPicked);
+            addAndRemoveItemFromInventory(i, inventoryWeTakeFrom, inventoryWeAddToo);
             i = -1;
           }
         }
@@ -59,26 +61,13 @@ public class Player {
     }
   }
 
-
-  public void addAndRemoveItemFromInventory(int indexOfItem, boolean isPicked) {
-    if(isPicked) {
-      moveItemToPlayerFromRoom(indexOfItem);
-    } else {
-      moveItemToRoomFromPlayer(indexOfItem);
-    }
+  public void addAndRemoveItemFromInventory(int indexOfItem, ArrayList<Item> invWeTakeFrom, ArrayList<Item> invWeAddToo) {
+    Item wantedItem = invWeTakeFrom.get(indexOfItem);
+    invWeAddToo.add(wantedItem);
+    invWeTakeFrom.remove(wantedItem);
   }
 
-  void moveItemToPlayerFromRoom(int indexOfWantedItem){
-    Item wantedItem = currentRoom.getItemsInRoom().get(indexOfWantedItem); //Item der bliver fjernet fra currentRoom og tilført til itemsPlayerCarry
-    addItemPlayerCarry(wantedItem); //Adder en Item fra currentRoom Item liste ud efter et index til spillerens inventory
-    currentRoom.getItemsInRoom().remove(wantedItem); //Fjerner den selv samme item fra currentRoom Item liste
-  }
 
-  void moveItemToRoomFromPlayer(int indexOfDroppedItem){
-    Item droppedItem = itemsPlayerCarry.get(indexOfDroppedItem); //Item der bliver fjernet fra spillerens inventory og tilført til currentRoom
-    currentRoom.getItemsInRoom().add(droppedItem); //Adder en Item til currentRoom fra spillerens inventory
-    removeItemPlayerCarry(droppedItem); //Fjerner den selv samme item fra players inventory
-  }
 
 
 
@@ -88,40 +77,6 @@ public class Player {
       inventoryWeTakeFrom.remove(i);
     }
   }
-
-
-  /*
-  void dropItem (UserInterface userInterface) {
-    int itemAmountPlayerHave = itemsPlayerCarry.size();
-    if (itemAmountPlayerHave > 0) {
-      if (itemAmountPlayerHave == 1) {
-        moveItemToRoomFromPlayer(0);
-        userInterface.itemPickedOrDropped(currentRoom.getItemsInRoom(), false);
-      } else {
-        userInterface.askPickOrDropItem(false);
-        String input = userInterface.returnsUserInput();
-        if (input.toLowerCase().equals("all")) {
-          for (int i = 0; i < itemAmountPlayerHave; i++) {
-            moveItemToRoomFromPlayer(0); //indexOfDroppedItem er 0 fordi hver gang der fjernes en, rykkes næste item på nulte plads
-          }
-          userInterface.allWasPickedOrDropped(false);
-        } else {
-          for (int i = itemAmountPlayerHave - 1; i >= 0; i--) {
-            String shortItemName = itemsPlayerCarry.get(i).getItemNameShort();
-            if (input.toLowerCase().equals(shortItemName)) {
-              moveItemToRoomFromPlayer(i);
-              userInterface.itemPickedOrDropped(currentRoom.getItemsInRoom(), false);
-              i = -1; //bryder ud af for-loopet efter det ønskede item er fundet
-            }
-          }
-        }
-      }
-    } else
-      userInterface.emptyInventory(false);
-  }
-
-   */
-
 
 
 
@@ -135,6 +90,15 @@ public class Player {
 
   public void clearPlayerInventory (){
     itemsPlayerCarry.clear();
+  }
+
+  public void resetPlayer (Room startRoom, boolean replayMap) {
+    playerWon = false;
+    playerLost = false;
+    currentRoom = startRoom;
+    if (replayMap) {
+      clearPlayerInventory();
+    }
   }
 
   // Setters og Getters

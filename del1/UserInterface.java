@@ -50,16 +50,6 @@ public class UserInterface {
                 Information about the room you are standing in -> \033[1;97m 'Look'\033[0m.
                 List of commands -> \033[1;97m'Help'\033[0m.
                 End game -> \033[1;97m'Exit'\033[0m.""");
-
-        /*"""
-                Game controls:
-                Move direction type 'North', 'South', 'West' or 'East'.
-                Pick up an item in a room type 'Grab' and 'the name' of the item or type 'All' to pick up all the items.
-                To see the items in your inventory type 'Inventory'.
-                Get information about the current room you are in type 'Look' or type 'Help' to get the commands.
-                To end game type 'Exit'."""
-
-         */
     }
 
 

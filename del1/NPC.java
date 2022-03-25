@@ -5,28 +5,60 @@ import java.util.Random;
 
 public class NPC {
   private Room npcCurrentRoom;
+  private ItemType wantedItemType;
   private ArrayList<Item> npcInventory = new ArrayList<>();
   private ArrayList<Room> allRoomsInAMap;
-  private Random random = new Random();
+  private final Random random = new Random();
   private String npcName;
-  private int npcHealth, npcBaseDamage;
 
 
-  public NPC (ArrayList<Room> allRoomsInAMap){
-    setNpcHealth(10);
-    setNpcBaseDamage(2);
-    setNpcName("Random Thug");
+  public NPC (ArrayList<Room> allRoomsInAMap, ItemType wantedItemType) {
+    npcName = "an old man";
     this.allRoomsInAMap = allRoomsInAMap;
-    // Npc'ens currentRoom sættes til et tilfældigt rum tildelt ud fra rummene som et Map holder
-    setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
+    this.wantedItemType = wantedItemType;
+    Room npcStartRoom = getRandomRoom(allRoomsInAMap);
+    Room mapStartRoom = allRoomsInAMap.get(0);
+    while (npcStartRoom == mapStartRoom) {
+      npcStartRoom = getRandomRoom(allRoomsInAMap);
+    }
+    Item winnerItem = new Item ("Holy Grail", "The Holy Grail");
+    npcInventory.add(winnerItem);
   }
 
-  public NPC (int health, int damage, Item startItem, String name, Room startRoom) {
-    npcHealth = health;
-    npcBaseDamage = damage;
+
+  public NPC (Item startItem, String name, Room startRoom) {
     npcInventory.add(startItem);
     npcName = name;
     npcCurrentRoom = startRoom;
+  }
+
+
+  public void picksWantedItem () {
+    ArrayList<Item> roomInventory = npcCurrentRoom.getItemsInRoom();
+    int numOfItems = roomInventory.size();
+    boolean foundWantedItem = false;
+    for (int i = 0; i < numOfItems; i++) {
+      Item roomItem = roomInventory.get(i);
+      ItemType roomItemType = roomItem.getItemType();
+      if (roomItemType == wantedItemType) {
+        npcInventory.add(roomItem);
+      }
+    }
+    if (foundWantedItem) {
+      dropAllItemsButWantedTypes();
+    }
+  }
+
+  public void dropAllItemsButWantedTypes() {
+
+    for (int i = 0; i < npcInventory.size(); i++) {
+      Item npcItem = npcInventory.get(i);
+      ItemType npcItemType = npcItem.getItemType();
+      if (npcItemType != wantedItemType) {
+        npcCurrentRoom.getItemsInRoom().add(npcItem);
+        npcInventory.remove(npcItem);
+      }
+    }
   }
 
   // Skal få fat i et tilfældigt rum i den ArrayListe der holder rum i et Map
@@ -42,19 +74,7 @@ public class NPC {
 
 
   // Getters og Setters
-  public void setNpcHealth (int npcHealth) {
-    this.npcHealth = npcHealth;
-  }
-  public int getNpcHealth () {
-    return npcHealth;
-  }
 
-  public void setNpcBaseDamage (int npcBaseDamage) {
-    this.npcBaseDamage = npcBaseDamage;
-  }
-  public int getNpcBaseDamage () {
-    return npcBaseDamage;
-  }
 
   public void setNpcName (String npcName) {
     this.npcName = npcName;
@@ -68,5 +88,9 @@ public class NPC {
   }
   public Room getNpcCurrentRoom () {
     return npcCurrentRoom;
+  }
+
+  public ItemType getWantedItemType () {
+    return wantedItemType;
   }
 }
