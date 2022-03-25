@@ -4,8 +4,9 @@ import java.util.Random;
 
 public class Door {
   private String doorName; // En dør har et navn der gerne skulle kunne indikere hvilken nøgle passer
-  private boolean isClosed = true; // En dør er altid lukket når den bliver skabt
   private KeyLockPair lock; // En dør har en lås, der er en Enum, KeyLockPair, som den deler med en nøgle, key
+  private boolean isClosed = true; // En dør er altid lukket når den bliver skabt
+
 
   public Door() { // En dør uden nogen argumenter er sat til at:
    doorName = "wooden door"; // blive kaldt en træ dør
