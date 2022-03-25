@@ -47,8 +47,8 @@ public class Player {
         takeOrDropAllItems(inventoryWeTakeFrom, inventoryWeAddToo);
       } else {
         for (int i = inventoryWeTakeFrom.size() - 1; i >= 0; i--) {
-          String shortItemName = inventoryWeTakeFrom.get(i).getItemNameShort();
-          String longItemName = inventoryWeTakeFrom.get(i).getItemNameLong();
+          String shortItemName = inventoryWeTakeFrom.get(i).getItemNameShort().toLowerCase();
+          String longItemName = inventoryWeTakeFrom.get(i).getItemNameLong().toLowerCase();
           if (input.equals(shortItemName) || input.equals(longItemName)) {
             UI.itemPickedOrDropped(longItemName, isPicked); //printer item dropped/picket
             addAndRemoveItemFromInventory(i, isPicked);
