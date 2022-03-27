@@ -31,6 +31,9 @@ public class Map {
     private final Item weapon2 = new Item("Axe", "Iron axe");
     private final Item weapon3 = new Item("Bow","Bow and arrows");
 
+    private final Food food1 = new Food("chicken masala", "delicious chicken masala", 10);
+    private final Food food2 = new Food("apple", "sour apple", 5);
+
     void createRooms() {
         //             north, south, west, east
         room1.setRooms(null, room4, null, room2);
@@ -57,6 +60,9 @@ public class Map {
         room8.setItemsInRoom(weapon1);
         room1.setItemsInRoom(weapon2);
         room4.setItemsInRoom(weapon3);
+
+        room1.setItemsInRoom(food2);
+        room2.setItemsInRoom(food1);
     }
 
     void clearRoomsInventory (){

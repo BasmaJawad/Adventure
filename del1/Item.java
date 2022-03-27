@@ -9,13 +9,13 @@ public class Item {
     Item(String itemNameShort, String itemNameLong) {
         this.itemNameShort = itemNameShort;
         this.itemNameLong = itemNameLong;
-        setItemType(itemNameShort);
+        //setItemType(itemNameShort);
     }
 
     Item(String itemNameShort, String itemNameLong, String itemType) {
         this.itemNameShort = itemNameShort;
         this.itemNameLong = itemNameLong;
-        setItemType(itemType);
+        //setItemType(itemType);
     }
 
     private void setItemType(String itemType) { // Metode der tager et String argument, det indikere en type item

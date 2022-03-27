@@ -9,6 +9,7 @@ public class Player {
   private char playerDirection;
   private boolean playerWon;
   private boolean playerLost;
+  private int health = 50;
 
 
   public Player(UserInterface UI) {
@@ -78,7 +79,38 @@ public class Player {
     }
   }
 
+  void eat () {
+    UI.doYouWantToEat();
+    String input = UI.returnsUserInput().toLowerCase();
 
+    for (int i = itemsPlayerCarry.size() - 1; i >= 0; i--) {
+      Item itemToTryToEat = itemsPlayerCarry.get(i);
+
+      String shortItemName = itemToTryToEat.getItemNameShort().toLowerCase();
+      String longItemName = itemToTryToEat.getItemNameLong().toLowerCase();
+      if (input.equals(shortItemName) || input.equals(longItemName)) {
+
+        if (itemToTryToEat instanceof Food){
+          UI.itemEaten(longItemName); //printer item spist
+          removeEatenFood(i, itemsPlayerCarry);
+          changeHealth(itemToTryToEat);
+        } else
+          UI.cannotBeEaten();
+        i = -1;
+      } else
+        UI.youDontHaveThatItem();
+    }
+  }
+
+  void changeHealth(Item itemToTryToEat){
+    int foodHealthPoint = ((Food) itemToTryToEat).getHealthPoint(); //typecaster item til food så vi har adgang til foods gethealtpoints
+    health += foodHealthPoint;
+  }
+
+  void removeEatenFood (int indexOfItem, ArrayList<Item> invWeTakeFrom){
+    Item wantedItem = invWeTakeFrom.get(indexOfItem);
+    invWeTakeFrom.remove(wantedItem);
+  }
 
   public void addItemPlayerCarry(Item item){
     itemsPlayerCarry.add(item);
@@ -121,5 +153,12 @@ public class Player {
 
   public ArrayList<Item> getItemsPlayerCarry (){
     return itemsPlayerCarry;
+  }
+
+  public void setHealth(int health) {
+    this.health = health;
+  }
+  public int getHealth() {
+    return health;
   }
 }

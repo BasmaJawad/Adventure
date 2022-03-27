@@ -58,8 +58,14 @@ public class TheGame {
         case "drop", "d":
           player.pickOrDropItem(false);
           break;
+        case "eat":
+          player.eat();
+          break;
         case "inventory","inv":
           userInterface.printInventory(player);
+          break;
+        case "health":
+          userInterface.printHealth(player.getHealth());
           break;
         case "help", "h":
           userInterface.printCommand();
@@ -67,7 +73,7 @@ public class TheGame {
         case "exit", "ex","0":
           exitFunction();
       }
-      playerWon();
+      //playerWon();
     }
   }
 

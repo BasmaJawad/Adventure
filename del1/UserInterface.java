@@ -127,6 +127,23 @@ public class UserInterface {
             System.out.println("Your inventory is empty.");
     }
 
+    void printHealth(int health){
+        System.out.println("Your health is: " + health);
+    }
+
+    void doYouWantToEat(){
+        System.out.println("What would you like to eat? ");
+    }
+    void itemEaten(String itemEaten){
+        System.out.println("You ate " + itemEaten);
+    }
+    void cannotBeEaten(){
+        System.out.println("That item is not edible");
+    }
+    void youDontHaveThatItem(){
+        System.out.println("You don't have that item");
+    }
+
     void direction (String direction, Room currentRoom) {
         System.out.println(userName + " went " + direction + ".");
         System.out.println("You have entered \033[1;97m" + currentRoom.getName() + ".\033[0m");
