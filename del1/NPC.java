@@ -5,17 +5,19 @@ import java.util.Random;
 
 public class NPC {
   private Room npcCurrentRoom;
-  private ItemType wantedItemType;
+  private boolean wantsSpecifikItemClass = false;
+  private Item wantedItemClass;
   private ArrayList<Item> npcInventory = new ArrayList<>();
   private ArrayList<Room> allRoomsInAMap;
   private final Random random = new Random();
   private String npcName;
 
 
-  public NPC (ArrayList<Room> allRoomsInAMap, ItemType wantedItemType) {
+  public NPC (ArrayList<Room> allRoomsInAMap, Item wantedItemClass) {
     npcName = "an old man";
     this.allRoomsInAMap = allRoomsInAMap;
-    this.wantedItemType = wantedItemType;
+    this.wantedItemClass = wantedItemClass;
+    wantsSpecifikItemClass = true;
     Room npcStartRoom = getRandomRoom(allRoomsInAMap);
     Room mapStartRoom = allRoomsInAMap.get(0);
     while (npcStartRoom == mapStartRoom) {
@@ -34,28 +36,29 @@ public class NPC {
 
 
   public void picksWantedItem () {
-    ArrayList<Item> roomInventory = npcCurrentRoom.getItemsInRoom();
-    int numOfItems = roomInventory.size();
-    boolean foundWantedItem = false;
-    for (int i = 0; i < numOfItems; i++) {
-      Item roomItem = roomInventory.get(i);
-      ItemType roomItemType = roomItem.getItemType();
-      if (roomItemType == wantedItemType) {
-        npcInventory.add(roomItem);
-        foundWantedItem = true;
+    if (wantsSpecifikItemClass) {
+      ArrayList<Item> roomInventory = npcCurrentRoom.getItemsInRoom();
+      int numOfItems = roomInventory.size();
+      boolean foundWantedItem = false;
+      for (int i = 0; i < numOfItems; i++) {
+        Item roomItem = roomInventory.get(i);
+        if (roomItem.getClass() == wantedItemClass.getClass()) {
+          npcInventory.add(roomItem);
+          foundWantedItem = true;
+        }
       }
-    }
-    if (foundWantedItem) {
-      dropAllItemsButWantedTypes();
+      if (foundWantedItem) {
+        dropAllItemsButWantedTypes();
+      }
     }
   }
 
   public void dropAllItemsButWantedTypes() {
 
-    for (int i = 0; i < npcInventory.size(); i++) {
+    for (int i = npcInventory.size() - 1; i >= 0; i++) {
       Item npcItem = npcInventory.get(i);
-      ItemType npcItemType = npcItem.getItemType();
-      if (npcItemType != wantedItemType) {
+      //ItemType npcItemType = npcItem.getItemType();
+      if (npcItem.getClass() != wantedItemClass.getClass()) {
         npcCurrentRoom.getItemsInRoom().add(npcItem);
         npcInventory.remove(npcItem);
       }
@@ -91,7 +94,4 @@ public class NPC {
     return npcCurrentRoom;
   }
 
-  public ItemType getWantedItemType () {
-    return wantedItemType;
-  }
 }

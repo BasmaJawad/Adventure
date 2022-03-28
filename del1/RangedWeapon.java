@@ -9,6 +9,7 @@ public class RangedWeapon extends Weapon{
 
     }
 
+
     void setWeaponUses(int weaponUses){
         this.weaponUses = weaponUses;
     }
