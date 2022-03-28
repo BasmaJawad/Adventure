@@ -13,7 +13,7 @@ public class NPC {
   private String npcName;
 
 
-  public NPC (ArrayList<Room> allRoomsInAMap, Item wantedItemClass) {
+  public NPC (ArrayList<Room> allRoomsInAMap, Item wantedItemClass, Item winnerItem) {
     npcName = "an old man";
     this.allRoomsInAMap = allRoomsInAMap;
     this.wantedItemClass = wantedItemClass;
@@ -23,7 +23,7 @@ public class NPC {
     while (npcStartRoom == mapStartRoom) {
       npcStartRoom = getRandomRoom(allRoomsInAMap);
     }
-    Item winnerItem = new Item ("Holy Grail", "The Holy Grail");
+    npcCurrentRoom = npcStartRoom;
     npcInventory.add(winnerItem);
   }
 
@@ -36,14 +36,15 @@ public class NPC {
 
 
   public void picksWantedItem () {
-    if (wantsSpecifikItemClass) {
-      ArrayList<Item> roomInventory = npcCurrentRoom.getItemsInRoom();
-      int numOfItems = roomInventory.size();
+    ArrayList<Item> roomInventory = npcCurrentRoom.getItemsInRoom();
+    int numOfItems = roomInventory.size();
+    if (wantsSpecifikItemClass && numOfItems > 0) {
       boolean foundWantedItem = false;
-      for (int i = 0; i < numOfItems; i++) {
+      for (int i = numOfItems - 1; i >= 0; i--) {
         Item roomItem = roomInventory.get(i);
         if (roomItem.getClass() == wantedItemClass.getClass()) {
           npcInventory.add(roomItem);
+          npcCurrentRoom.getItemsInRoom().remove(roomItem);
           foundWantedItem = true;
         }
       }
@@ -54,13 +55,13 @@ public class NPC {
   }
 
   public void dropAllItemsButWantedTypes() {
-
-    for (int i = npcInventory.size() - 1; i >= 0; i++) {
-      Item npcItem = npcInventory.get(i);
-      //ItemType npcItemType = npcItem.getItemType();
-      if (npcItem.getClass() != wantedItemClass.getClass()) {
-        npcCurrentRoom.getItemsInRoom().add(npcItem);
-        npcInventory.remove(npcItem);
+    if (npcInventory.size() > 0) {
+      for (int i = npcInventory.size() - 1; i >= 0; i--) {
+        Item npcItem = npcInventory.get(i);
+        if (npcItem.getClass() != wantedItemClass.getClass()) {
+          npcCurrentRoom.getItemsInRoom().add(npcItem);
+          npcInventory.remove(npcItem);
+        }
       }
     }
   }

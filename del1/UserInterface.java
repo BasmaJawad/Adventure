@@ -58,9 +58,13 @@ public class UserInterface {
     }
 
 
-    void lookAround(Room currentRoom) {
+    void lookAround(Room currentRoom, NPC npc) {
+        Room npcCurrentRoom = npc.getNpcCurrentRoom();
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
+        if (currentRoom == npcCurrentRoom) {
+            System.out.println("There is " + npc.getNpcName() + " in the room with you.");
+        }
 
         //Viser items i room
         int amountOfItemsInRoom = currentRoom.getItemsInRoom().size(); //Antal items

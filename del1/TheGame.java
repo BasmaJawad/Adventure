@@ -10,7 +10,7 @@ public class TheGame {
   private Room winnerRoom;
   private Room startRoom;
 
-  private boolean playerWon;
+  // private boolean playerWon;
 
   void createGame(){
     map.createRooms();
@@ -28,7 +28,7 @@ public class TheGame {
 
   //Bruger handling
   void userAction() {
-    while(playerWon == false) {
+    while(player.getPlayerWon() == false) {
       userInterface.typeDirectionOrLookAround();
       String input = userInterface.returnsUserInput();
 
@@ -50,13 +50,14 @@ public class TheGame {
           moveRoom();
           break;
         case "look", "look around", "l":
-          userInterface.lookAround(player.getCurrentRoom());
+          userInterface.lookAround(player.getCurrentRoom(), map.getOldMan());
           break;
         case "grab", "g", "pick":
           player.pickOrDropItem(true);  //isPicked = true
           break;
         case "drop", "d":
           player.pickOrDropItem(false);
+          map.getOldMan().picksWantedItem();
           break;
         case "eat":
           player.eat();
@@ -82,7 +83,7 @@ public class TheGame {
         case "exit", "ex","0":
           exitFunction();
       }
-      //playerWon();
+      playerWon();
     }
   }
 
@@ -107,16 +108,14 @@ public class TheGame {
 
   public void playerWon() {
     int numOfItems = startRoom.getItemsInRoom().size();
+    Item winnerItem = map.getWinnerItem();
     for (int i = 0; i < numOfItems; i++) {
-      do {
-        ItemType roomItemType = startRoom.getItemsInRoom().get(i).getItemType();
-        if (roomItemType == ItemType.NONE) {
+        Item roomItem = startRoom.getItemsInRoom().get(i);
+        if (roomItem.getClass() == winnerItem.getClass()) {
           userInterface.winnerOutput();
-          playerWon = true;
+          player.setPlayerWon(true);
         }
-      } while (!playerWon);
     }
-
   }
 
   void exitFunction(){

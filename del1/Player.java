@@ -42,6 +42,9 @@ public class Player {
      // String itemShortName = inventoryWeTakeFrom.get(0).getItemNameShort();
       String longItemName = inventoryWeTakeFrom.get(0).getItemNameLong();
       UI.itemPickedOrDropped(longItemName, isPicked);
+      if (!isPicked) {
+        resetEquippedWeapon(inventoryWeTakeFrom.get(0));
+      }
       addAndRemoveItemFromInventory(0, inventoryWeTakeFrom,inventoryWeAddToo);
 
     } else {
@@ -49,14 +52,16 @@ public class Player {
       String input = UI.returnsUserInput().toLowerCase();
       if (input.equals("all")) {
         UI.allWasPickedOrDropped(isPicked);
-        takeOrDropAllItems(inventoryWeTakeFrom, inventoryWeAddToo);
+        takeOrDropAllItems(inventoryWeTakeFrom, inventoryWeAddToo, isPicked);
       } else {
         for (int i = inventoryWeTakeFrom.size() - 1; i >= 0; i--) {
           String shortItemName = inventoryWeTakeFrom.get(i).getItemNameShort().toLowerCase();
           String longItemName = inventoryWeTakeFrom.get(i).getItemNameLong().toLowerCase();
           if (input.equals(shortItemName) || input.equals(longItemName)) {
 
-            resetEquippedWeapon(inventoryWeTakeFrom.get(i)); //resetter equippedItem, hvis det er det item der bliver dropped.
+            if (!isPicked) {
+              resetEquippedWeapon(inventoryWeTakeFrom.get(i));
+            } //resetter equippedItem, hvis det er det item der bliver dropped.
 
             UI.itemPickedOrDropped(longItemName, isPicked); //printer item dropped/picket
             addAndRemoveItemFromInventory(i, inventoryWeTakeFrom, inventoryWeAddToo);
@@ -74,8 +79,11 @@ public class Player {
     invWeTakeFrom.remove(wantedItem);
   }
 
-  void takeOrDropAllItems(ArrayList<Item> inventoryWeTakeFrom, ArrayList<Item> inventoryWeAddToo){
+  void takeOrDropAllItems(ArrayList<Item> inventoryWeTakeFrom, ArrayList<Item> inventoryWeAddToo, boolean isPicked){
     for (int i = inventoryWeTakeFrom.size() - 1; i >= 0; i--) {
+      if (!isPicked) {
+        resetEquippedWeapon(inventoryWeTakeFrom.get(i));
+      }
       inventoryWeAddToo.add(inventoryWeTakeFrom.get(i));
       inventoryWeTakeFrom.remove(i);
     }
@@ -220,5 +228,17 @@ public class Player {
   }
   public int getHealth() {
     return health;
+  }
+  public void setPlayerWon (boolean playerWon) {
+    this.playerWon = playerWon;
+  }
+  public boolean getPlayerWon () {
+    return playerWon;
+  }
+  public void setPlayerLost (boolean playerLost) {
+    this.playerLost = playerLost;
+  }
+  public boolean getPlayerLost () {
+    return playerLost;
   }
 }

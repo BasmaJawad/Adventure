@@ -21,11 +21,11 @@ public class Map {
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
 
-    // Disse skal have en ItemType (enum)
-    private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
-    private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
-    private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
-    private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
+
+    //private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
+    //private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
+    //private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
+    //private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
     private final MeleeWeapon mWeapon1 = new MeleeWeapon("Sword", "Iron sword");
     private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
@@ -34,6 +34,8 @@ public class Map {
     private final Food food1 = new Food("chicken masala", "delicious chicken masala", 10);
     private final Food food2 = new Food("apple", "sour apple", 5);
 
+    private final Item winnerItem = new Item("Holy Grail", "The Holy Grail");
+    private final NPC oldMan = new NPC(roomArrayList, rWeapon1, winnerItem);
 
     void createRooms() {
 
@@ -54,13 +56,16 @@ public class Map {
         return roomArrayList.get(i);
     }
 
+    public Item getWinnerItem () {
+        return winnerItem;
+    }
+
+    public NPC getOldMan () {
+        return oldMan;
+    }
 
 
     void addItemsToRoomsAtFirst(){ //sætter items i et Item arrayList
-        room5.setItemsInRoom(healingPotion1);
-        room5.setItemsInRoom(healingPotion2);
-        room5.setItemsInRoom(healingPotion3);
-        room5.setItemsInRoom(healingPotion4);
 
         room1.setItemsInRoom(mWeapon1);
         room8.setItemsInRoom(mWeapon2);
