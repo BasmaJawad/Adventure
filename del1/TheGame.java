@@ -13,7 +13,7 @@ public class TheGame {
   private boolean playerWon;
 
   void createGame(){
-    map.createRooms();
+    map.createRoomsForMap1();
     winnerRoom = map.getRoom(4);
     startRoom = map.getRoom(0);
     map.addItemsToRoomsAtFirst();   //adder items til rooms

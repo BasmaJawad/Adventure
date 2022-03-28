@@ -35,7 +35,17 @@ public class Map {
     private final Food food2 = new Food("apple", "sour apple", 5);
 
 
-    void createRooms() {
+    void createRoomsForMap1() {
+        final Room room1 = new Room("Room One", roomDescriptions.room1);
+        final Room room2 = new Room("Room Two", roomDescriptions.room2);
+        final Room room3 = new Room("Room Three", roomDescriptions.room3);
+        final Room room4 = new Room("Room Four", roomDescriptions.room4);
+        final Room room5 = new Room("Room Five", roomDescriptions.room5);
+        final Room room6 = new Room("Room Six", roomDescriptions.room6);
+        final Room room7 = new Room("Room Seven", roomDescriptions.room7);
+        final Room room8 = new Room("Room Eight", roomDescriptions.room8);
+        final Room room9 = new Room("Room nine", roomDescriptions.room9);
+
         //             north, south, west, east
         room1.setRooms(null, room4, null, room2);
         room2.setRooms(null, null, room1, room3);
@@ -46,6 +56,9 @@ public class Map {
         room7.setRooms(room4, null, null, room8);
         room8.setRooms(room5, null, room7, room9);
         room9.setRooms(room6, null, room8, null);
+
+        final Room[] roomArray = {room1, room2, room3, room4, room5, room6, room7, room8, room9};
+        roomArrayList.addAll(List.of(roomArray));
     }
 
     public Room getRoom(int i) {
