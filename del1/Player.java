@@ -26,6 +26,7 @@ public class Player {
     } else {
       UI.emptyInventory(isPicked);
     }
+
   }
 
   public ArrayList<Item> getPlayerOrRoomItemList(boolean isPicked) {
@@ -54,10 +55,14 @@ public class Player {
           String shortItemName = inventoryWeTakeFrom.get(i).getItemNameShort().toLowerCase();
           String longItemName = inventoryWeTakeFrom.get(i).getItemNameLong().toLowerCase();
           if (input.equals(shortItemName) || input.equals(longItemName)) {
+
+            resetEquippedWeapon(inventoryWeTakeFrom.get(i)); //resetter equippedItem, hvis det er det item der bliver dropped.
+
             UI.itemPickedOrDropped(longItemName, isPicked); //printer item dropped/picket
             addAndRemoveItemFromInventory(i, inventoryWeTakeFrom, inventoryWeAddToo);
-            i = -1;
+           i = -1;
           }
+
         }
       }
     }
@@ -135,6 +140,11 @@ public class Player {
         UI.weaponNotFound();
 
     }
+  }
+
+  void resetEquippedWeapon(Item dropEquippedItem){
+    if (dropEquippedItem == equippedWeapon) //Hvis dropped item er det item player har equipped
+    equippedWeapon = null;
   }
 
  public Item getEquippedWeapon(){
