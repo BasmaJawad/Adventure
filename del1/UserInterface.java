@@ -6,6 +6,11 @@ import java.util.Scanner;
 public class UserInterface {
     String userName;
     Scanner in = new Scanner(System.in);
+    String blueColor = "\033[0;34m";
+    String resetColor ="\033[0m";
+    String greenColor = "\033[0;32m";
+    String redColor = "\033[0;31m";
+    String yellowColor ="\033[0;33m";
 
 
     String returnsUserInput() {
@@ -67,20 +72,20 @@ public class UserInterface {
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
         if (currentRoom == npcCurrentRoom) {
-            System.out.println("There is " + npc.getNpcName() + " in the room with you.");
+            System.out.println(yellowColor+"There is " + npc.getNpcName() + " in the room with you."+resetColor);
         }
 
         //Viser items i room
         int amountOfItemsInRoom = currentRoom.getItemsInRoom().size(); //Antal items
         if (amountOfItemsInRoom > 0) {
-            System.out.print("Items in the room: " + currentRoom.getItemsInRoom().get(0).getItemNameLong());
+            System.out.print(greenColor + "Items in the room: " + currentRoom.getItemsInRoom().get(0).getItemNameLong());
             if (amountOfItemsInRoom > 1) {
                 for (int i = 1; i < amountOfItemsInRoom; i++) {
                     String itemNameLong = currentRoom.getItemsInRoom().get(i).getItemNameLong(); //Finder alle lange navne for items
                     System.out.print(", " + itemNameLong);
                 }
             }
-            System.out.print(".\n");
+            System.out.print(".\n"+resetColor);
         } else
             System.out.println("No items in " + currentRoom.getName() + ".");
     }
@@ -96,20 +101,25 @@ public class UserInterface {
 
 
     void itemPickedOrDropped(String itemShortName, boolean isPicked) {
+        System.out.print(blueColor);
 
         if (isPicked)
-            System.out.print(userName + " has picked up ");
+            System.out.print( userName + " has picked up ");
         else
             System.out.print(userName + " has dropped ");
 
-        System.out.print(itemShortName + ".\n");
+        System.out.println(itemShortName + resetColor);
     }
 
     void allWasPickedOrDropped(boolean isPicked) {
+        System.out.print(blueColor);
+
         if (isPicked)
-            System.out.println(userName + " has picked up everything in the room");
+            System.out.println(userName + " has picked up everything in the room.");
         else
-            System.out.println(userName + " dropped everything in the inventory");
+            System.out.println(userName + " dropped everything in the inventory.");
+
+        System.out.print(resetColor);
     }
 
     void emptyInventory(boolean isPicked) {
@@ -140,10 +150,11 @@ public class UserInterface {
     }*/
 
     void printInventory(Player player) {
+
         int playerInvSize = player.getItemsPlayerCarry().size();
 
         if (playerInvSize > 0) {
-            System.out.print("You are carrying: ");
+            System.out.print("You are carrying: "+greenColor);
             for (int i = 0; i < playerInvSize; i++) {
                 if (player.getItemsPlayerCarry().get(i) == player.getEquippedWeapon())
                     System.out.print("[Equipped] ");
@@ -152,11 +163,12 @@ public class UserInterface {
             }
         } else
             System.out.println("Your inventory is empty.");
+        System.out.print(resetColor+"\n");
     }
 
 
     void printHealth(int health) {
-        System.out.println("Your health is: " + health);
+        System.out.println("Your health is: " + greenColor+health+resetColor);
     }
 
     void doYouWantToEat() {
@@ -180,7 +192,7 @@ public class UserInterface {
     }
 
     void direction(String direction, Room currentRoom) {
-        System.out.println(userName + " went " + direction + ".");
+        System.out.println(blueColor + userName + " went " + direction + "."+resetColor);
         System.out.println("You have entered \033[1;97m" + currentRoom.getName() + ".\033[0m");
     }
 
@@ -193,7 +205,7 @@ public class UserInterface {
     }
 
     void attackedEnemy(){
-        System.out.println(userName + " has attacked enemy.");
+        System.out.println(blueColor+userName + " has attacked enemy."+resetColor);
     }
 
     void attackNotPossible(){
@@ -209,11 +221,11 @@ public class UserInterface {
     }
 
     void weaponEquipped(String equippedWeapon) {
-        System.out.println("Weapon equipped. \nYou are holding " + equippedWeapon);
+        System.out.println(blueColor+"Weapon equipped."+resetColor+" \nYou are holding " + equippedWeapon);
     }
 
     void ineffectualWeapon(){
-        System.out.println("Weapon ineffectual");
+        System.out.println(redColor+"Weapon ineffectual"+resetColor);
     }
 
     void wrongDirection() {
@@ -221,10 +233,10 @@ public class UserInterface {
     }
 
     void winnerOutput() {
-        System.out.println("You won the game! \n");
+        System.out.println("\n\033[1;32mYou won the game! \n"+resetColor);
     }
 
     void playAgain() {
-        System.out.print("Do you wish to play again, type 'no' or 'yes': ");
+        System.out.print("\n \033[1;97mDo you wish to play again, type 'no' or 'yes': "+resetColor);
     }
 }
