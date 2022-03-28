@@ -90,28 +90,37 @@ public class Player {
   }
 
 
-  void eat () {
-    UI.doYouWantToEat();
-    String input = UI.returnsUserInput().toLowerCase();
+  void eat (String itemToEat) {
+    String input;
 
-    for (int i = itemsPlayerCarry.size() - 1; i >= 0; i--) {
-      Item itemToTryToEat = itemsPlayerCarry.get(i);
-
-      String shortItemName = itemToTryToEat.getItemNameShort().toLowerCase();
-      String longItemName = itemToTryToEat.getItemNameLong().toLowerCase();
-      if (input.equals(shortItemName) || input.equals(longItemName)) {
-
-        if (itemToTryToEat instanceof Food){
-          UI.itemEaten(longItemName); //printer item spist
-          removeEatenFood(i, itemsPlayerCarry);
-          changeHealth(itemToTryToEat);
-        } else
-          UI.cannotBeEaten(longItemName);
-        i = -1;
-      } else
-        UI.youDontHaveThatItem();
+    if (itemToEat.contains(" ")) {
+      input = itemToEat.substring(itemToEat.indexOf(' ')+1);
     }
-  }
+    else{
+      UI.doYouWantToEat();
+      input = UI.returnsUserInput().toLowerCase();
+    }
+
+      for (int i = itemsPlayerCarry.size() - 1; i >= 0; i--) {
+        Item itemToTryToEat = itemsPlayerCarry.get(i);
+
+        String shortItemName = itemToTryToEat.getItemNameShort().toLowerCase();
+        String longItemName = itemToTryToEat.getItemNameLong().toLowerCase();
+        if (input.equals(shortItemName) || input.equals(longItemName)) {
+
+          if (itemToTryToEat instanceof Food) {
+            UI.itemEaten(longItemName); //printer item spist
+            removeEatenFood(i, itemsPlayerCarry);
+            changeHealth(itemToTryToEat);
+          } else
+            UI.cannotBeEaten(longItemName);
+          i = -1;
+        } else
+          UI.youDontHaveThatItem(); //Skal ud af for-loopet
+      }
+    }
+
+
   void changeHealth(Item itemToTryToEat){
     int foodHealthPoint = ((Food) itemToTryToEat).getHealthPoint(); //typecaster item til food så vi har adgang til foods gethealtpoints
     health += foodHealthPoint;
@@ -122,9 +131,17 @@ public class Player {
   }
 
 
-  void equipWeapon() {
-    UI.chooseEquipWeapon();
-    String input = UI.returnsUserInput().toLowerCase();
+  void equipWeapon(String itemToEquip) {
+
+    String input;
+
+    if (itemToEquip.contains(" ")) {
+      input = itemToEquip.substring(itemToEquip.indexOf(' ')+1);
+    }
+    else{
+      UI.chooseEquipWeapon();
+      input = UI.returnsUserInput().toLowerCase();
+    }
 
     for (int i = itemsPlayerCarry.size() - 1; i >= 0; i--) {
       Item weaponToEquip = itemsPlayerCarry.get(i);
@@ -140,11 +157,10 @@ public class Player {
         }
         else
           UI.itemNotAWeapon(longItemName);
-
         i = -1;
       }
       else
-        UI.weaponNotFound();
+        UI.weaponNotFound(); //Skal rykkes ud af forloopet
 
     }
   }
@@ -154,6 +170,10 @@ public class Player {
   }
   Item getEquippedWeapon(){
     return equippedWeapon;
+  }
+  void unEquipWeapon(){
+    UI.unEquip(equippedWeapon.getItemNameLong());
+    equippedWeapon = null;
   }
 
 
@@ -167,6 +187,12 @@ public class Player {
         weaponUses = weaponUses - 1;
         ((Weapon) equippedWeapon).setWeaponUses(weaponUses);
         UI.usesLeft(weaponUses);
+
+        if(weaponUses==0){
+          UI.ineffectualWeapon();
+          equippedWeapon = null; //mangler en metode der gør at man ikke kan atacke med et weapon der er brugt op
+
+        }
       }
     }
     else
@@ -174,16 +200,10 @@ public class Player {
 
   }
 
-  void unEquipWeapon(){
-    UI.unEquip(equippedWeapon.getItemNameLong());
-    equippedWeapon = null;
-  }
-
 
   public void addItemPlayerCarry(Item item){
     itemsPlayerCarry.add(item);
   }
-
   public void removeItemPlayerCarry(Item item){
     itemsPlayerCarry.remove(item);
   }

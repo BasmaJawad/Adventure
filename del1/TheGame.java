@@ -31,8 +31,19 @@ public class TheGame {
     while(player.getPlayerWon() == false) {
       userInterface.typeDirectionOrLookAround();
       String input = userInterface.returnsUserInput();
+      input = input.toLowerCase();
+      String keyWord;
 
-      switch (input.toLowerCase()) {
+
+     // String input = input.substring(0, input.indexOf(' '));
+
+      if (input.contains(" ")) {
+        keyWord = input.substring(0, input.indexOf(' '));
+      } else
+        keyWord = input;
+
+
+      switch (keyWord) {
         case "west", "go west", "w":
           player.setDirection('W');
           moveRoom();
@@ -60,13 +71,13 @@ public class TheGame {
           map.getOldMan().picksWantedItem();
           break;
         case "eat":
-          player.eat();
+          player.eat(input);
           break;
         case "inventory","inv":
           userInterface.printInventory(player);
           break;
         case "equip", "eq":
-          player.equipWeapon();
+          player.equipWeapon(input);
           break;
         case "attack", "att":
           player.playerAttack();

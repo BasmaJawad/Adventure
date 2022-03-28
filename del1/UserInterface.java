@@ -35,6 +35,10 @@ public class UserInterface {
                 Type \033[1;97m'Look around' \033[0m to get a description of the room.
                 Type \033[1;97m'Grab' \033[0mto collect items in a room.
                 Type \033[1;97m'Inventory' \033[0mto see the items you have.
+                Type \033[1;97m'Health' \033[0mto check your healthpoints.
+                Type \033[1;97m'Equip'/'Unequip'\033[0m to equip/unequip a weapon from your inventory.
+                Type \033[1;97m'Eat'\033[0m to eat food from your inventory.
+                Type \033[1;97m'Attack'\033[0m to attack with your equipped weapon.
                 Type \033[1;97m'Help' \033[0mto get the controls of the game.
                 Type \033[1;97m'Exit' \033[0mto end the game.
                 You are Currently standing in:""" + " \033[1;97m" + currentRoom.getName() + "\033[0m");
@@ -189,7 +193,7 @@ public class UserInterface {
     }
 
     void attackedEnemy(){
-        System.out.println("Attacked enemy.");
+        System.out.println(userName + " has attacked enemy.");
     }
 
     void attackNotPossible(){
@@ -198,7 +202,7 @@ public class UserInterface {
 
 
     void usesLeft(int weaponUses){
-        System.out.println("uses left: " + weaponUses);
+        System.out.println("Remaining uses of weapon: " + weaponUses);
     }
     void unEquip(String weaponUnequiped){
         System.out.println(weaponUnequiped + " unequiped.");
@@ -206,6 +210,10 @@ public class UserInterface {
 
     void weaponEquipped(String equippedWeapon) {
         System.out.println("Weapon equipped. \nYou are holding " + equippedWeapon);
+    }
+
+    void ineffectualWeapon(){
+        System.out.println("Weapon ineffectual");
     }
 
     void wrongDirection() {
