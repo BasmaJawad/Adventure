@@ -42,6 +42,7 @@ public class NPC {
       ItemType roomItemType = roomItem.getItemType();
       if (roomItemType == wantedItemType) {
         npcInventory.add(roomItem);
+        foundWantedItem = true;
       }
     }
     if (foundWantedItem) {
