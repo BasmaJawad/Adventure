@@ -66,7 +66,7 @@ public class NPC {
   public Room getRandomRoom (ArrayList<Room> allRoomsInAMap) {
     int roomAmount = allRoomsInAMap.size();
     int randomNum = random.nextInt(roomAmount);
-    Room randomRoom = allRoomsInAMap.get(randomNum);
+    Room randomRoom = allRoomsInAMap.get(randomNum); //finder rum-indexet med et random tal
     return randomRoom;
   }
 

@@ -10,6 +10,7 @@ public class Player {
   private boolean playerWon;
   private boolean playerLost;
   private int health = 50;
+  private Item equippedWeapon;
 
 
   public Player(UserInterface UI) {
@@ -110,6 +111,34 @@ public class Player {
   void removeEatenFood (int indexOfItem, ArrayList<Item> invWeTakeFrom){
     Item wantedItem = invWeTakeFrom.get(indexOfItem);
     invWeTakeFrom.remove(wantedItem);
+  }
+
+  void equipWeapon() {
+    UI.chooseEquipWeapon();
+    String input = UI.returnsUserInput().toLowerCase();
+
+    for (int i = itemsPlayerCarry.size() - 1; i >= 0; i--) {
+      Item weaponToEquip = itemsPlayerCarry.get(i);
+
+      String shortItemName = weaponToEquip.getItemNameShort().toLowerCase();
+      String longItemName = weaponToEquip.getItemNameLong().toLowerCase();
+
+      if (input.equals(shortItemName) || input.equals(longItemName)) {
+
+        if (weaponToEquip instanceof Weapon) {
+          equippedWeapon = weaponToEquip;
+          UI.weaponEquipped(longItemName); //printer equipped våben
+          i = -1;
+        }
+      }
+      else
+        UI.weaponNotFound();
+
+    }
+  }
+
+ public Item getEquippedWeapon(){
+    return equippedWeapon;
   }
 
   public void addItemPlayerCarry(Item item){

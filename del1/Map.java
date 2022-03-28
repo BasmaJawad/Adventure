@@ -27,12 +27,13 @@ public class Map {
     private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
     private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
-    private final Item weapon1 = new Item("Sword", "Iron sword");
-    private final Item weapon2 = new Item("Axe", "Iron axe");
-    private final Item weapon3 = new Item("Bow","Bow and arrows");
+    private final MeleeWeapon mWeapon1 = new MeleeWeapon("Sword", "Iron sword");
+    private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
+    private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows",10);
 
     private final Food food1 = new Food("chicken masala", "delicious chicken masala", 10);
     private final Food food2 = new Food("apple", "sour apple", 5);
+
 
     void createRooms() {
         //             north, south, west, east
@@ -57,9 +58,9 @@ public class Map {
         room5.setItemsInRoom(healingPotion3);
         room5.setItemsInRoom(healingPotion4);
 
-        room8.setItemsInRoom(weapon1);
-        room1.setItemsInRoom(weapon2);
-        room4.setItemsInRoom(weapon3);
+        room1.setItemsInRoom(mWeapon1);
+        room8.setItemsInRoom(mWeapon2);
+        room4.setItemsInRoom(rWeapon1);
 
         room1.setItemsInRoom(food2);
         room2.setItemsInRoom(food1);

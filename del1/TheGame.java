@@ -64,6 +64,9 @@ public class TheGame {
         case "inventory","inv":
           userInterface.printInventory(player);
           break;
+        case "equip", "eq":
+          player.equipWeapon();
+          break;
         case "health":
           userInterface.printHealth(player.getHealth());
           break;

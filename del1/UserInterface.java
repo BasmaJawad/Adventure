@@ -12,7 +12,7 @@ public class UserInterface {
         return in.nextLine();
     }
 
-    String userName(){
+    String userName() {
         System.out.print("TYPE YOUR NAME: ");
         userName = returnsUserInput();
         return userName;
@@ -28,7 +28,7 @@ public class UserInterface {
                 |__|__|____/ \\___/|_____|_|___| |_| |_____|__|__|_____|  |_____|__|__|_|_|_|_____|
                 """);
         String name = userName();
-        System.out.println("\nWelcome to Adventure Game, " + name +"!\033[0m\n");
+        System.out.println("\nWelcome to Adventure Game, " + name + "!\033[0m\n");
         System.out.println("""
                 You need to get/do 'missing winning scenario'.
                 Type a direction \033[1;97mNorth, South, West or East\033[0m.
@@ -37,7 +37,7 @@ public class UserInterface {
                 Type \033[1;97m'Inventory' \033[0mto see the items you have.
                 Type \033[1;97m'Help' \033[0mto get the controls of the game.
                 Type \033[1;97m'Exit' \033[0mto end the game.
-                You are Currently standing in:"""  + " \033[1;97m"+ currentRoom.getName()+"\033[0m");
+                You are Currently standing in:""" + " \033[1;97m" + currentRoom.getName() + "\033[0m");
     }
 
 
@@ -64,7 +64,7 @@ public class UserInterface {
 
         //Viser items i room
         int amountOfItemsInRoom = currentRoom.getItemsInRoom().size(); //Antal items
-        if (amountOfItemsInRoom > 0){
+        if (amountOfItemsInRoom > 0) {
             System.out.print("Items in the room: " + currentRoom.getItemsInRoom().get(0).getItemNameLong());
             if (amountOfItemsInRoom > 1) {
                 for (int i = 1; i < amountOfItemsInRoom; i++) {
@@ -79,7 +79,7 @@ public class UserInterface {
 
 
     void askPickOrDropItem(boolean isPicked) {
-        if(isPicked){
+        if (isPicked) {
             System.out.print("Which item do you want to pick up? ");
         } else
             System.out.print("Which item do you want to drop? ");
@@ -90,20 +90,20 @@ public class UserInterface {
     void itemPickedOrDropped(String itemShortName, boolean isPicked) {
 
         if (isPicked)
-            System.out.print(userName+ " has picked up ");
-         else
-            System.out.print(userName+ " has dropped ");
+            System.out.print(userName + " has picked up ");
+        else
+            System.out.print(userName + " has dropped ");
 
         System.out.print(itemShortName + ".\n");
     }
 
-    void allWasPickedOrDropped(boolean isPicked){
+    void allWasPickedOrDropped(boolean isPicked) {
         if (isPicked)
             System.out.println(userName + " has picked up everything in the room");
-         else
+        else
             System.out.println(userName + " dropped everything in the inventory");
     }
-    
+
     void emptyInventory(boolean isPicked) {
         if (isPicked)
             System.out.println("No items in the room to be picked up.");
@@ -112,27 +112,48 @@ public class UserInterface {
     }
 
 
-    void printInventory(Player player) {
+   /* void printInventory(Player player) {
         int playerInvSize = player.getItemsPlayerCarry().size();
 
         if (playerInvSize > 0) {
             System.out.print("You are carrying: " + player.getItemsPlayerCarry().get(0).getItemNameLong()); //Skiftede til long name
             if (playerInvSize > 1) {
                 for (int i = 1; i < player.getItemsPlayerCarry().size(); i++) {
-                    System.out.print(", " + player.getItemsPlayerCarry().get(i).getItemNameLong()); //Skiftede til long name
+                    System.out.println(", ");
+                    if (player.getItemsPlayerCarry().get(i) == player.getEquippedWeapon())
+                        System.out.println("[Equipped]");
+
+                    System.out.print( player.getItemsPlayerCarry().get(i).getItemNameLong()); //Skiftede til long name
                 }
             }
             System.out.print(".\n");
         } else
             System.out.println("Your inventory is empty.");
-    }
+    }*/
+
+    void printInventory(Player player) {
+        int playerInvSize = player.getItemsPlayerCarry().size();
+
+        if (playerInvSize > 0) {
+            System.out.print("You are carrying: ");
+            for (int i = 0; i < playerInvSize; i++) {
+                if (player.getItemsPlayerCarry().get(i) == player.getEquippedWeapon())
+                    System.out.print("[Equipped] ");
+
+                System.out.print(player.getItemsPlayerCarry().get(i).getItemNameLong() + ", "); //Skiftede til long name
+            }
+        }
+     else
+            System.out.println("Your inventory is empty.");
+}
+
 
     void printHealth(int health){
         System.out.println("Your health is: " + health);
     }
 
     void doYouWantToEat(){
-        System.out.println("What would you like to eat? ");
+        System.out.print("What would you like to eat? ");
     }
     void itemEaten(String itemEaten){
         System.out.println("You ate " + itemEaten);
@@ -148,7 +169,15 @@ public class UserInterface {
         System.out.println(userName + " went " + direction + ".");
         System.out.println("You have entered \033[1;97m" + currentRoom.getName() + ".\033[0m");
     }
-
+void chooseEquipWeapon(){
+    System.out.print("Choose weapon to equip: ");
+}
+void weaponNotFound(){
+    System.out.println("No such weapon in your inventory.");
+}
+void weaponEquipped(String equippedWeapon){
+    System.out.println("Weapon equipped. \nYou are holding " + equippedWeapon);
+}
     void wrongDirection () {
         System.out.println("Not possible to move that direction, try again.");
     }
