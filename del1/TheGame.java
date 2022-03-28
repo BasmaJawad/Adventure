@@ -67,11 +67,17 @@ public class TheGame {
         case "equip", "eq":
           player.equipWeapon();
           break;
+        case "attack", "att":
+          player.playerAttack();
+          break;
         case "health":
           userInterface.printHealth(player.getHealth());
           break;
         case "help", "h":
           userInterface.printCommand();
+          break;
+        case "unequip", "uneq":
+          player.unEquipWeapon();
           break;
         case "exit", "ex","0":
           exitFunction();

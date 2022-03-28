@@ -142,43 +142,69 @@ public class UserInterface {
 
                 System.out.print(player.getItemsPlayerCarry().get(i).getItemNameLong() + ", "); //Skiftede til long name
             }
-        }
-     else
+        } else
             System.out.println("Your inventory is empty.");
-}
+    }
 
 
-    void printHealth(int health){
+    void printHealth(int health) {
         System.out.println("Your health is: " + health);
     }
 
-    void doYouWantToEat(){
+    void doYouWantToEat() {
         System.out.print("What would you like to eat? ");
     }
-    void itemEaten(String itemEaten){
+
+    void itemEaten(String itemEaten) {
         System.out.println("You ate " + itemEaten);
     }
-    void cannotBeEaten(){
-        System.out.println("That item is not edible");
+
+    void cannotBeEaten(String notEdibleItem) {
+        System.out.println(notEdibleItem + " is not edible");
     }
-    void youDontHaveThatItem(){
+
+    void youDontHaveThatItem() {
         System.out.println("You don't have that item");
     }
 
-    void direction (String direction, Room currentRoom) {
+    void itemNotAWeapon(String notWeapon) {
+        System.out.println(notWeapon + " is not a weapon");
+    }
+
+    void direction(String direction, Room currentRoom) {
         System.out.println(userName + " went " + direction + ".");
         System.out.println("You have entered \033[1;97m" + currentRoom.getName() + ".\033[0m");
     }
-void chooseEquipWeapon(){
-    System.out.print("Choose weapon to equip: ");
-}
-void weaponNotFound(){
-    System.out.println("No such weapon in your inventory.");
-}
-void weaponEquipped(String equippedWeapon){
-    System.out.println("Weapon equipped. \nYou are holding " + equippedWeapon);
-}
-    void wrongDirection () {
+
+    void chooseEquipWeapon() {
+        System.out.print("Choose weapon to equip: ");
+    }
+
+    void weaponNotFound() {
+        System.out.println("No such weapon in your inventory.");
+    }
+
+    void attackedEnemy(){
+        System.out.println("Attacked enemy.");
+    }
+
+    void attackNotPossible(){
+        System.out.println("Not possible to attack, no weapons equipped");
+    }
+
+
+    void usesLeft(int weaponUses){
+        System.out.println("uses left: " + weaponUses);
+    }
+    void unEquip(String weaponUnequiped){
+        System.out.println(weaponUnequiped + " unequiped.");
+    }
+
+    void weaponEquipped(String equippedWeapon) {
+        System.out.println("Weapon equipped. \nYou are holding " + equippedWeapon);
+    }
+
+    void wrongDirection() {
         System.out.println("Not possible to move that direction, try again.");
     }
 

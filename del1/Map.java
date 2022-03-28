@@ -29,7 +29,7 @@ public class Map {
 
     private final MeleeWeapon mWeapon1 = new MeleeWeapon("Sword", "Iron sword");
     private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
-    private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows",10);
+    private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows", 10);
 
     private final Food food1 = new Food("chicken masala", "delicious chicken masala", 10);
     private final Food food2 = new Food("apple", "sour apple", 5);
@@ -64,6 +64,8 @@ public class Map {
     public Room getRoom(int i) {
         return roomArrayList.get(i);
     }
+
+
 
     void addItemsToRoomsAtFirst(){ //sætter items i et Item arrayList
         room5.setItemsInRoom(healingPotion1);

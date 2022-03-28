@@ -17,8 +17,13 @@ public class Weapon extends Item {
     int getWeaponUses(){
         return weaponUses;
     }
+
     void setWeaponUses(int weaponUses){
         this.weaponUses = weaponUses;
+    }
+
+    int remainingUses(){
+        return weaponUses-1;
     }
 
 }

@@ -74,16 +74,13 @@ public class Player {
     invWeTakeFrom.remove(wantedItem);
   }
 
-
-
-
-
   void takeOrDropAllItems(ArrayList<Item> inventoryWeTakeFrom, ArrayList<Item> inventoryWeAddToo){
     for (int i = inventoryWeTakeFrom.size() - 1; i >= 0; i--) {
       inventoryWeAddToo.add(inventoryWeTakeFrom.get(i));
       inventoryWeTakeFrom.remove(i);
     }
   }
+
 
   void eat () {
     UI.doYouWantToEat();
@@ -101,22 +98,21 @@ public class Player {
           removeEatenFood(i, itemsPlayerCarry);
           changeHealth(itemToTryToEat);
         } else
-          UI.cannotBeEaten();
+          UI.cannotBeEaten(longItemName);
         i = -1;
       } else
         UI.youDontHaveThatItem();
     }
   }
-
   void changeHealth(Item itemToTryToEat){
     int foodHealthPoint = ((Food) itemToTryToEat).getHealthPoint(); //typecaster item til food så vi har adgang til foods gethealtpoints
     health += foodHealthPoint;
   }
-
   void removeEatenFood (int indexOfItem, ArrayList<Item> invWeTakeFrom){
     Item wantedItem = invWeTakeFrom.get(indexOfItem);
     invWeTakeFrom.remove(wantedItem);
   }
+
 
   void equipWeapon() {
     UI.chooseEquipWeapon();
@@ -133,23 +129,48 @@ public class Player {
         if (weaponToEquip instanceof Weapon) {
           equippedWeapon = weaponToEquip;
           UI.weaponEquipped(longItemName); //printer equipped våben
-          i = -1;
         }
+        else
+          UI.itemNotAWeapon(longItemName);
+
+        i = -1;
       }
       else
         UI.weaponNotFound();
 
     }
   }
-
   void resetEquippedWeapon(Item dropEquippedItem){
     if (dropEquippedItem == equippedWeapon) //Hvis dropped item er det item player har equipped
     equippedWeapon = null;
   }
-
- public Item getEquippedWeapon(){
+  Item getEquippedWeapon(){
     return equippedWeapon;
   }
+
+
+  void playerAttack(){
+
+    if (equippedWeapon != null) {
+      UI.attackedEnemy();
+      int weaponUses = ((Weapon) equippedWeapon).getWeaponUses();
+
+      if(weaponUses>0) {
+        weaponUses = weaponUses - 1;
+        ((Weapon) equippedWeapon).setWeaponUses(weaponUses);
+        UI.usesLeft(weaponUses);
+      }
+    }
+    else
+      UI.attackNotPossible();
+
+  }
+
+  void unEquipWeapon(){
+    UI.unEquip(equippedWeapon.getItemNameLong());
+    equippedWeapon = null;
+  }
+
 
   public void addItemPlayerCarry(Item item){
     itemsPlayerCarry.add(item);
