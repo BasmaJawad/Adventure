@@ -31,8 +31,8 @@ public class Map {
     private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
     private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows", 2);
 
-    private final Food food1 = new Food("chicken masala", "delicious chicken masala", 10);
-    private final Food food2 = new Food("apple", "sour apple", 5);
+    private final Food food1 = new Food("Chicken", "delicious chicken masala", 10);
+    private final Food food2 = new Food("Apple", "sour apple", 5);
 
     private final Item winnerItem = new Item("Holy Grail", "The Holy Grail");
     private final NPC oldMan = new NPC(roomArrayList, rWeapon1, winnerItem);
