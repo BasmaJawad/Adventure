@@ -20,28 +20,45 @@ public class Map {
     private final Room[] roomArray = {room1, room2, room3, room4, room5, room6, room7, room8, room9};
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
-
-
     //private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
     //private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
     //private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
     //private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
 
-    private final MeleeWeapon mWeapon1 = new MeleeWeapon("Sword", "Iron sword");
-    private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
-    private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows", 2);
+   // private final MeleeWeapon mWeapon1 = new MeleeWeapon("Sword", "Iron sword");
+   // private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
+   // private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows", 2);
 
-    private final Food food1 = new Food("Chicken", "delicious chicken masala", 10);
-    private final Food food2 = new Food("Apple", "sour apple", 5);
+    //private final Food food1 = new Food("Chicken", "delicious chicken masala", 10);
+   // private final Food food2 = new Food("Apple", "sour apple", 5);
 
-    private final Item winnerItem = new Item("Holy Grail", "The Holy Grail");
-    private final NPC oldMan = new NPC(roomArrayList, rWeapon1, winnerItem);
+   // private final Item winnerItem = new Item("Holy Grail", "The Holy Grail");
+
+    private final Food food1 = new Food("Chocolate", "Chocolate bar",5);
+    private final Food food2 = new Food("Black syringe", "black syringe with liquid",-15); //food eller weapon?
+    private final Food food3 = new Food("Purple syringe", "Purple syringe with liquid",15);
+    private final Food food4 = new Food("Potion", "Mystery potion",10);
+    private final Food food5 = new Food("Bread","Moldy bread",-5);
+    private final Food food6 = new Food("Beans","Canned beans",7);
+    private final Food food7 = new Food("Water", "Bottle of water",6);
+
+    private final MeleeWeapon mWeapon1 = new MeleeWeapon("Knife", "Sharp knife");
+    private final MeleeWeapon mWeapon2 = new MeleeWeapon("Pipe","Metal Pipe");
+    private final MeleeWeapon mWeapon3 = new MeleeWeapon("Ladle", "Wooden ladle");
+
+    private final RangedWeapon rWeapon1 = new RangedWeapon("Glass","Glass shard",2);
+    private final RangedWeapon rWeapon2 = new RangedWeapon("Matches","Box of matches",3);
+    private final RangedWeapon rWeapon3 = new RangedWeapon("Deodorant","Strong deodorant",5);
+
+    private final Item NPCwantedItem = new Item("Box", "box labeled 'Margaret's dentures'");
+    private final Item winnerItem = new Item("Key", "Big green key");
+
+    private final NPC oldMan = new NPC(roomArrayList, NPCwantedItem, winnerItem);
 
     private final NPC rat1 = new NPC(roomArrayList, "a rat1");
     private final NPC rat2 = new NPC(roomArrayList, "a rat2");
     private final NPC[] monsters = {rat1, rat2};
     private final ArrayList<NPC> allMonstersInMap = new ArrayList<>(List.of(monsters));
-
 
 
     void createRooms() {
@@ -59,6 +76,29 @@ public class Map {
 
     }
 
+    void addItemsAndNpcsToRooms(){ //sætter items i et Item arrayList
+
+        room1.setItemsInRoom(mWeapon1);
+        room1.setItemsInRoom(food1);
+
+        room3.setItemsInRoom(food2);
+        room3.setItemsInRoom(food3);
+        room3.setItemsInRoom(food4);
+        room3.setItemsInRoom(rWeapon1);
+
+        room4.setItemsInRoom(mWeapon1);
+        room5.setItemsInRoom(rWeapon2);
+
+        room7.setItemsInRoom(food5);
+        room7.setItemsInRoom(food6);
+        room7.setItemsInRoom(food7);
+        room7.setItemsInRoom(mWeapon3);
+
+        room8.setItemsInRoom(rWeapon3);
+        room8.setItemsInRoom(NPCwantedItem);
+
+    }
+
     public Room getRoom(int i) {
         return roomArrayList.get(i);
     }
@@ -71,17 +111,6 @@ public class Map {
         return oldMan;
     }
 
-
-    void addItemsAndNpcsToRooms(){ //sætter items i et Item arrayList
-
-        room1.setItemsInRoom(mWeapon1);
-        room8.setItemsInRoom(mWeapon2);
-        room4.setItemsInRoom(rWeapon1);
-
-        room1.setItemsInRoom(food2);
-        room2.setItemsInRoom(food1);
-
-    }
 
     void clearRoomsInventory (){
         for (int i=0; i<roomArrayList.size(); i++){

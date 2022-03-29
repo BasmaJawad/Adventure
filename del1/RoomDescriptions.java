@@ -5,7 +5,8 @@ public class RoomDescriptions {
     //forladt fabrik. Still in the making
 
     final String room1 = "Underground basement. Big broken storage shelves.\n" +
-            "Lots of food packaging and traces of chocolate";
+            "Lots of food packaging and traces of chocolate\n" +
+            "There is a big green door. You try to open it, but it's locked";
 
     final String room2 = "High ceiling. Rubbery, soft floor. Empty room.+\n" +
             "Its dark and gloomy. Water drops hitting the floor can be heard. Weird sounds can be heard";
@@ -20,8 +21,8 @@ public class RoomDescriptions {
             "Did you just hear chattering sounds?";
 
     final String room5 = "Control room.\n" +
-            "You see many monitors monitoring the whole factory.\n" +
-            "But you also see yourself on all of the screens at the same time. You are crazy\n" +
+            "There are many monitors monitoring the whole factory. Most of them are not working\n" +
+            "The desk are covered with cigarette butts.\n" +
             "Did you just see a human shadow on the screen?";
 
     final String room6 = "In the middle of a Hallway\n" +
@@ -36,7 +37,7 @@ public class RoomDescriptions {
 
     final String room8 = "Locker room. Lockers are left open. Bags and clothing hanging out of them. \n" +
             "It smells like mossy wood.\n" +
-            " To your surprise it is extraordinarily big for a c.\n " +
+            " To your surprise it is extraordinarily big for a locker room.\n " +
             " Looks like there are rat holes in the mossy wooden ground.";
 
 
