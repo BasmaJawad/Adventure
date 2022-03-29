@@ -177,20 +177,27 @@ public class Player {
     }
 
 
-    void playerAttack() {
-
-        if (equippedWeapon != null) {
-            if (equippedWeapon.canUse(equippedWeapon, UI)) {
-                UI.attackedEnemy();
-
-            } else {
-                UI.ineffectualWeapon();
-                equippedWeapon = null;
+    void playerAttack(ArrayList<NPC> allMonstersInMap) {
+        if (equippedWeapon != null && equippedWeapon.canUse(equippedWeapon, UI)) { // Hvis spiller holder et våben og at det er våben der er brugeligt
+            for (int i = 0; i < allMonstersInMap.size(); i++) {
+                NPC anNPC = allMonstersInMap.get(i);
+                Room npcCurrentRoom = anNPC.getNpcCurrentRoom();
+                if (npcCurrentRoom == currentRoom) {
+                    anNPC.respawnNPC();
+                    UI.attackedEnemy();
+                    i = allMonstersInMap.size();
+                }
             }
-
+        } else if (equippedWeapon != null) { // Hvis spiller holder et våben, men det er ikke brugeligt (i dette tilfælde kun RangedWeapon med ingen uses left)
+            UI.ineffectualWeapon();
+            equippedWeapon = null;
         } else
             UI.attackNotPossible();
+    }
 
+    public void takeDamage(int damage, String npcName) {
+        UI.playerTookDamage(damage, npcName);
+        health -= damage;
     }
 
 

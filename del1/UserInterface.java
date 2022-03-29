@@ -67,14 +67,20 @@ public class UserInterface {
     }
 
 
-    void lookAround(Room currentRoom, NPC npc) {
+    void lookAround(Room currentRoom, NPC npc, ArrayList<NPC> allMonstersInMap) {
         Room npcCurrentRoom = npc.getNpcCurrentRoom();
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
         if (currentRoom == npcCurrentRoom) {
             System.out.println(yellowColor+"There is " + npc.getNpcName() + " in the room with you."+resetColor);
         }
-
+        for (int i = 0 ; i < allMonstersInMap.size(); i++) {
+            NPC aMonster = allMonstersInMap.get(i);
+            Room monsterCurrentRoom = aMonster.getNpcCurrentRoom();
+            if (monsterCurrentRoom == currentRoom) {
+                System.out.println(aMonster.getNpcName());
+            }
+        }
         //Viser items i room
         int amountOfItemsInRoom = currentRoom.getItemsInRoom().size(); //Antal items
         if (amountOfItemsInRoom > 0) {
@@ -130,25 +136,6 @@ public class UserInterface {
     }
 
 
-   /* void printInventory(Player player) {
-        int playerInvSize = player.getItemsPlayerCarry().size();
-
-        if (playerInvSize > 0) {
-            System.out.print("You are carrying: " + player.getItemsPlayerCarry().get(0).getItemNameLong()); //Skiftede til long name
-            if (playerInvSize > 1) {
-                for (int i = 1; i < player.getItemsPlayerCarry().size(); i++) {
-                    System.out.println(", ");
-                    if (player.getItemsPlayerCarry().get(i) == player.getEquippedWeapon())
-                        System.out.println("[Equipped]");
-
-                    System.out.print( player.getItemsPlayerCarry().get(i).getItemNameLong()); //Skiftede til long name
-                }
-            }
-            System.out.print(".\n");
-        } else
-            System.out.println("Your inventory is empty.");
-    }*/
-
     void printInventory(Player player) {
 
         int playerInvSize = player.getItemsPlayerCarry().size();
@@ -169,6 +156,10 @@ public class UserInterface {
 
     void printHealth(int health) {
         System.out.println("Your health is: " + greenColor+health+resetColor);
+    }
+
+    void playerTookDamage (int damage, String npcName) {
+        System.out.println(userName + " took " + damage + " damage from " + npcName + ".");
     }
 
     void doYouWantToEat() {
@@ -234,6 +225,10 @@ public class UserInterface {
 
     void winnerOutput() {
         System.out.println("\n\033[1;32mYou won the game! \n"+resetColor);
+    }
+
+    void loserOutput() {
+        System.out.println("\n\033[1;31mYou lost the game! \n" + resetColor);
     }
 
     void playAgain() {

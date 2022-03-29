@@ -37,6 +37,13 @@ public class Map {
     private final Item winnerItem = new Item("Holy Grail", "The Holy Grail");
     private final NPC oldMan = new NPC(roomArrayList, rWeapon1, winnerItem);
 
+    private final NPC rat1 = new NPC(roomArrayList, "a rat1");
+    private final NPC rat2 = new NPC(roomArrayList, "a rat2");
+    private final NPC[] monsters = {rat1, rat2};
+    private final ArrayList<NPC> allMonstersInMap = new ArrayList<>(List.of(monsters));
+
+
+
     void createRooms() {
 
         //             north, south, west, east
@@ -65,7 +72,7 @@ public class Map {
     }
 
 
-    void addItemsToRoomsAtFirst(){ //sætter items i et Item arrayList
+    void addItemsAndNpcsToRooms(){ //sætter items i et Item arrayList
 
         room1.setItemsInRoom(mWeapon1);
         room8.setItemsInRoom(mWeapon2);
@@ -73,6 +80,7 @@ public class Map {
 
         room1.setItemsInRoom(food2);
         room2.setItemsInRoom(food1);
+
     }
 
     void clearRoomsInventory (){
@@ -80,5 +88,9 @@ public class Map {
             Room eachRoom = roomArrayList.get(i);
             eachRoom.clearRoomInventory();
         }
+    }
+
+    public ArrayList<NPC> getAllMonstersInMap() {
+        return allMonstersInMap;
     }
 }

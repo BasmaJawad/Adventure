@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Room {
   private Room north, south, west, east;
   private final ArrayList<Item> itemsInRoom = new ArrayList<>();
+  private final ArrayList<NPC> npcsInRoom = new ArrayList<>();
   private String name;
   private String roomDescription;
 

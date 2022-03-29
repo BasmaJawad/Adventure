@@ -11,6 +11,7 @@ public class NPC {
   private ArrayList<Room> allRoomsInAMap;
   private final Random random = new Random();
   private String npcName;
+  private int npcDamage;
 
 
   public NPC (ArrayList<Room> allRoomsInAMap, Item wantedItemClass, Item winnerItem) {
@@ -28,10 +29,23 @@ public class NPC {
   }
 
 
-  public NPC (Item startItem, String name, Room startRoom) {
-    npcInventory.add(startItem);
-    npcName = name;
-    npcCurrentRoom = startRoom;
+  public NPC (ArrayList<Room> allRoomsInAMap, String npcName) {
+    this.npcName = npcName;
+    this.allRoomsInAMap = allRoomsInAMap;
+    npcCurrentRoom = getRandomRoom(allRoomsInAMap);
+    npcDamage = 1;
+  }
+
+
+
+
+  public void respawnNPC () {
+    Room pastRoom = npcCurrentRoom;
+    setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
+    while (pastRoom == npcCurrentRoom) {
+      setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
+    }
+    System.out.println("The NPC " + npcName + " was in room " + pastRoom.getName() + " and is now in room " + npcCurrentRoom.getName());
   }
 
 
@@ -93,6 +107,14 @@ public class NPC {
   }
   public Room getNpcCurrentRoom () {
     return npcCurrentRoom;
+  }
+
+  public void setNpcDamage (int npcDamage) {
+    this.npcDamage = npcDamage;
+  }
+
+  public int getNpcDamage () {
+    return npcDamage;
   }
 
 }

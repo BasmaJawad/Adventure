@@ -1,5 +1,7 @@
 package del1;
 
+import java.util.ArrayList;
+
 import static java.lang.Runtime.getRuntime;
 
 public class TheGame {
@@ -19,7 +21,7 @@ public class TheGame {
     map.createRooms();
     winnerRoom = map.getRoom(winnerRoomNum);
     startRoom = map.getRoom(startRoomNum);
-    map.addItemsToRoomsAtFirst();   //adder items til rooms
+    map.addItemsAndNpcsToRooms();   //adder items til rooms
     player.resetPlayer(startRoom, true);
     userInterface.printIntroduction(player.getCurrentRoom());
   }
@@ -31,7 +33,7 @@ public class TheGame {
 
   //Bruger handling
   void userAction() {
-    while(player.getPlayerWon() == false) {
+    while(!(player.getPlayerWon() || player.getPlayerLost())) {
       userInterface.typeDirectionOrLookAround();
       String input = userInterface.returnsUserInput();
       input = input.toLowerCase().trim();
@@ -64,7 +66,7 @@ public class TheGame {
           moveRoom();
           break;
         case "look", "look around", "l":
-          userInterface.lookAround(player.getCurrentRoom(), map.getOldMan());
+          userInterface.lookAround(player.getCurrentRoom(), map.getOldMan(), map.getAllMonstersInMap());
           break;
         case "grab", "g", "pick":
           player.pickOrDropItem(true);  //isPicked = true
@@ -83,7 +85,7 @@ public class TheGame {
           player.equipWeapon(input);
           break;
         case "attack", "att":
-          player.playerAttack();
+          player.playerAttack(map.getAllMonstersInMap());
           break;
         case "health":
           userInterface.printHealth(player.getHealth());
@@ -97,6 +99,7 @@ public class TheGame {
         case "exit", "ex","0":
           exitFunction();
       }
+      playerLost();
       playerWon();
     }
   }
@@ -108,6 +111,16 @@ public class TheGame {
     } else {
       player.setCurrentRoom(currentRoom.getRooms(player.getDirection()));
       directionMoved();
+      ArrayList<NPC> monstersInMap = map.getAllMonstersInMap();
+      for (int i = 0; i < monstersInMap.size(); i++) {
+        NPC aMonster = monstersInMap.get(i);
+        Room monstersRoom = aMonster.getNpcCurrentRoom();
+        if (player.getCurrentRoom() == monstersRoom) {
+          int npcDamage = aMonster.getNpcDamage();
+          String npcName = aMonster.getNpcName();
+          player.takeDamage(npcDamage, npcName);
+        }
+      }
     }
   }
 
@@ -129,6 +142,14 @@ public class TheGame {
           userInterface.winnerOutput();
           player.setPlayerWon(true);
         }
+    }
+  }
+
+  public void playerLost() {
+    int playerHealth = player.getHealth();
+    if (playerHealth <= 0) {
+      userInterface.loserOutput();
+      player.setPlayerLost(true);
     }
   }
 
