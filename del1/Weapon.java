@@ -22,8 +22,20 @@ public class Weapon extends Item {
         this.weaponUses = weaponUses;
     }
 
-    int remainingUses(){
-        return weaponUses-1;
-    }
+    public boolean canUse(Weapon equippedWeapon, UserInterface UI){
+        if (equippedWeapon instanceof RangedWeapon){
+            int remainingUses = equippedWeapon.getWeaponUses();
+            if (remainingUses<1)
+                return false;
+            else{
+                 remainingUses--;
+                 setWeaponUses(remainingUses);
+                UI.usesLeft(weaponUses);
+                return true;
+            }
 
+        }
+        else
+            return true;
+    }
 }

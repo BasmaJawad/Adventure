@@ -9,13 +9,16 @@ public class TheGame {
 
   private Room winnerRoom;
   private Room startRoom;
+  private int winnerRoomNum = 4;
+  private int startRoomNum = 0;
+
 
   // private boolean playerWon;
 
   void createGame(){
     map.createRooms();
-    winnerRoom = map.getRoom(4);
-    startRoom = map.getRoom(0);
+    winnerRoom = map.getRoom(winnerRoomNum);
+    startRoom = map.getRoom(startRoomNum);
     map.addItemsToRoomsAtFirst();   //adder items til rooms
     player.resetPlayer(startRoom, true);
     userInterface.printIntroduction(player.getCurrentRoom());
@@ -31,13 +34,13 @@ public class TheGame {
     while(player.getPlayerWon() == false) {
       userInterface.typeDirectionOrLookAround();
       String input = userInterface.returnsUserInput();
-      input = input.toLowerCase();
+      input = input.toLowerCase().trim();
       String keyWord;
 
 
      // String input = input.substring(0, input.indexOf(' '));
 
-      if (input.contains(" ")) {
+      if (input.contains(" ") && !input.startsWith("go")) {
         keyWord = input.substring(0, input.indexOf(' '));
       } else
         keyWord = input;
