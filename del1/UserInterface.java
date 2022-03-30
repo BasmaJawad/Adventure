@@ -73,7 +73,7 @@ public class UserInterface {
 
 
     void typeDirectionOrLookAround() {
-        System.out.print("\nType direction or look around: ");
+        System.out.print("\nNext move: ");
     }
 
 
@@ -82,13 +82,14 @@ public class UserInterface {
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
         System.out.println(currentRoom.getRoomDescription() + ".");
         if (currentRoom == npcCurrentRoom) {
-            System.out.println(yellowColor+"There is " + npc.getNpcName() + " in the room with you."+resetColor);
+            System.out.println(yellowColor+ "There is " + npc.getNpcName() + " in the room with you."+ resetColor);
+            System.out.println("He mumbles something that sounds like 'my wife's dentures'");
         }
         for (int i = 0 ; i < allMonstersInMap.size(); i++) {
             NPC aMonster = allMonstersInMap.get(i);
             Room monsterCurrentRoom = aMonster.getNpcCurrentRoom();
             if (monsterCurrentRoom == currentRoom) {
-                System.out.println(aMonster.getNpcName());
+                System.out.println(aMonster.getNpcName() +" is running towards you");
             }
         }
         //Viser items i room

@@ -33,7 +33,7 @@ public class NPC {
     this.npcName = npcName;
     this.allRoomsInAMap = allRoomsInAMap;
     npcCurrentRoom = getRandomRoom(allRoomsInAMap);
-    npcDamage = 20;
+    npcDamage = 5;
   }
 
 

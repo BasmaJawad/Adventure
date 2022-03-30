@@ -22,7 +22,7 @@ public class Map {
 
 
     private final Food food1 = new Food("Chocolate", "Chocolate bar",5);
-    private final Food food2 = new Food("Black syringe", "black syringe with liquid",-15); //food eller weapon?
+    private final Food food2 = new Food("Black syringe", "black syringe with liquid",-15);
     private final Food food3 = new Food("Purple syringe", "Purple syringe with liquid",15);
     private final Food food4 = new Food("Potion", "Mystery potion",10);
     private final Food food5 = new Food("Bread","Moldy bread",-5);
@@ -42,8 +42,8 @@ public class Map {
 
     private final NPC oldMan = new NPC(roomArrayList, npcWantedItem, winnerItem);
 
-    private final NPC rat1 = new NPC(roomArrayList, "a rat1");
-    private final NPC rat2 = new NPC(roomArrayList, "a rat2");
+    private final NPC rat1 = new NPC(roomArrayList, "A big evil-looking rat");
+    private final NPC rat2 = new NPC(roomArrayList, "A brown hairless rat");
     private final NPC[] monsters = {rat1, rat2};
     private final ArrayList<NPC> allMonstersInMap = new ArrayList<>(List.of(monsters));
 
