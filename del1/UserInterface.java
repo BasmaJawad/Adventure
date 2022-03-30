@@ -14,7 +14,9 @@ public class UserInterface {
 
 
     String returnsUserInput() {
-        return in.nextLine();
+        String userInput = in.nextLine();
+        System.out.println();
+        return userInput;
     }
 
     String userName() {
@@ -37,6 +39,7 @@ public class UserInterface {
         System.out.println("""
                 You are trapped within a factory and need to escape and not be eaten by rats.
                 The only way out is through the green trapdoor using the green key.
+                Do remember to look around after entering a room.
                 
                 Type a direction \033[1;97mNorth, South, West or East\033[0m.
                 Type \033[1;97m'Look around' \033[0m to get a description of the room.
@@ -56,8 +59,8 @@ public class UserInterface {
 
     void printCommand() {
         System.out.println("""
-                \n\033[1;97mGAME CONTROLS:\033[1;97m.
-                Move direction -> \033[1;97m'North', 'South', 'West' or 'East'\033[1;97m.
+                \033[1;97mGAME CONTROLS:\033[0m
+                Move direction -> \033[1;97m'North', 'South', 'West' or 'East'\033[0m.
                 Information about the room you are standing in -> \033[1;97m 'Look'\033[0m.
                 Pick up item -> \033[1;97m'Grab' \033[0m(type 'All' to pick up all the items in a room).
                 Drop item -> \033[1;97m'Drop' \033[0m(type 'All' to drop up all the items in your inventory).
@@ -66,7 +69,6 @@ public class UserInterface {
                 Equip or unequip a weapon -> \033[1;97m'Equip/Unequip'\033[0m.
                 Eat food within your inventory -> \033[1;97m'Eat'\033[0m.
                 Attack a hostile enemy that's within the same room as you -> \033[1;97m'Attack'\033[0m.
-                
                 List of commands -> \033[1;97m'Help'\033[0m.
                 End game -> \033[1;97m'Exit'\033[0m.""");
     }
@@ -80,10 +82,14 @@ public class UserInterface {
     void lookAround(Room currentRoom, NPC npc, ArrayList<NPC> allMonstersInMap) {
         Room npcCurrentRoom = npc.getNpcCurrentRoom();
         System.out.println("You are standing in \033[1;97m" + currentRoom.getName() + "\033[0m");
-        System.out.println(currentRoom.getRoomDescription() + ".");
+        System.out.println(currentRoom.getRoomDescription());
         if (currentRoom == npcCurrentRoom) {
             System.out.println(yellowColor+ "There is " + npc.getNpcName() + " in the room with you."+ resetColor);
-            System.out.println("He mumbles something that sounds like 'my wife's dentures'");
+            if (npc.isWantsSpecifikItem()) {
+                System.out.println("He mumbles something that sounds like 'my wife's dentures' and around his neck there is a 'Green Key'.");
+            } else {
+                System.out.println("He is caressing a pair of old dentures and gives no notice to you.");
+            }
         }
         for (int i = 0 ; i < allMonstersInMap.size(); i++) {
             NPC aMonster = allMonstersInMap.get(i);
@@ -159,9 +165,9 @@ public class UserInterface {
 
                 System.out.print(player.getItemsPlayerCarry().get(i).getItemNameLong() + ", "); //Skiftede til long name
             }
+            System.out.print(resetColor);
         } else
             System.out.println("Your inventory is empty.");
-        System.out.print(resetColor+"\n");
     }
 
 
@@ -169,16 +175,18 @@ public class UserInterface {
         System.out.println("Health points: " + greenColor+health+resetColor);
     }
 
-    void playerTookDamage (int damage, String npcName) {
+    void playerTookDamage (int damage, String npcName, int playerHealth) {
         System.out.println(userName + " took " + damage + " damage from " + npcName + ".");
+        printHealth(playerHealth);
     }
 
     void doYouWantToEat() {
         System.out.print("What would you like to eat? ");
     }
 
-    void itemEaten(String itemEaten) {
+    void itemEaten(String itemEaten, int playerHealth) {
         System.out.println("You ate " + itemEaten);
+        printHealth(playerHealth);
     }
 
     void cannotBeEaten(String notEdibleItem) {
@@ -210,8 +218,12 @@ public class UserInterface {
         System.out.println(blueColor+userName + " has attacked enemy."+resetColor);
     }
 
-    void attackNotPossible(){
-        System.out.println("Not possible to attack, no weapons equipped");
+    void attackNotPossibleNoNpc() {
+        System.out.println("Not possible to attack, no hostile mobs in the room.");
+    }
+
+    void attackNotPossibleNoWeapon(){
+        System.out.println("Not possible to attack, no weapons equipped.");
     }
 
 

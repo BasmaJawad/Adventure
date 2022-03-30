@@ -87,10 +87,10 @@ public class TheGame {
         case "attack", "att":
           player.playerAttack(map.getAllMonstersInMap());
           break;
-        case "health":
+        case "health", "h":
           userInterface.printHealth(player.getHealth());
           break;
-        case "help", "h":
+        case "help":
           userInterface.printCommand();
           break;
         case "unequip", "uneq":
@@ -110,6 +110,7 @@ public class TheGame {
       userInterface.wrongDirection();
     } else {
       player.setCurrentRoom(currentRoom.getRooms(player.getDirection()));
+      map.spawnRat();
       directionMoved();
       ArrayList<NPC> monstersInMap = map.getAllMonstersInMap();
       for (int i = 0; i < monstersInMap.size(); i++) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
+    private int spawnRatCounter = 0;
+    private final int resetRatUpperBound = 10;
 
     private final RoomDescriptions roomDescriptions = new RoomDescriptions();
 
@@ -84,6 +86,16 @@ public class Map {
         room8.setItemsInRoom(rWeapon3);
         room8.setItemsInRoom(npcWantedItem);
 
+    }
+
+    public void spawnRat() {
+        if (spawnRatCounter == resetRatUpperBound) {
+            spawnRatCounter = 0;
+            NPC aRat = new NPC(roomArrayList, "a rat");
+            allMonstersInMap.add(aRat);
+        } else {
+            spawnRatCounter++;
+        }
     }
 
     public Room getRoom(int i) {

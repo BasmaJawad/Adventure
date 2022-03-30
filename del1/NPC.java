@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class NPC {
   private Room npcCurrentRoom;
-  private boolean wantsSpecifikItemClass = false;
+  private boolean wantsSpecifikItem = false;
   private Item wantedItem;
   private ArrayList<Item> npcInventory = new ArrayList<>();
   private ArrayList<Room> allRoomsInAMap;
@@ -18,7 +18,7 @@ public class NPC {
     npcName = "an old man";
     this.allRoomsInAMap = allRoomsInAMap;
     this.wantedItem = wantedItemClass;
-    wantsSpecifikItemClass = true;
+    wantsSpecifikItem = true;
     Room npcStartRoom = getRandomRoom(allRoomsInAMap);
     Room mapStartRoom = allRoomsInAMap.get(0);
     while (npcStartRoom == mapStartRoom) {
@@ -30,7 +30,7 @@ public class NPC {
 
 
   public NPC (ArrayList<Room> allRoomsInAMap, String npcName) {
-    this.npcName = npcName;
+    this.npcName = "\033[0;31m" + npcName + "\033[0m";
     this.allRoomsInAMap = allRoomsInAMap;
     npcCurrentRoom = getRandomRoom(allRoomsInAMap);
     npcDamage = 5;
@@ -40,19 +40,20 @@ public class NPC {
 
 
   public void respawnNPC () {
-    Room pastRoom = npcCurrentRoom;
-    setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
-    while (pastRoom == npcCurrentRoom) {
+    if(!npcName.equals("a rat")) {
+      Room pastRoom = npcCurrentRoom;
       setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
+      while (pastRoom == npcCurrentRoom) {
+        setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
+      }
     }
-    System.out.println("The NPC " + npcName + " was in room " + pastRoom.getName() + " and is now in room " + npcCurrentRoom.getName());
   }
 
 
   public void picksWantedItem () {
     ArrayList<Item> roomInventory = npcCurrentRoom.getItemsInRoom();
     int numOfItems = roomInventory.size();
-    if (wantsSpecifikItemClass && numOfItems > 0) {
+    if (wantsSpecifikItem && numOfItems > 0) {
       boolean foundWantedItem = false;
       for (int i = numOfItems - 1; i >= 0; i--) {
         Item roomItem = roomInventory.get(i);
@@ -60,6 +61,7 @@ public class NPC {
           npcInventory.add(roomItem);
           npcCurrentRoom.getItemsInRoom().remove(roomItem);
           foundWantedItem = true;
+          wantsSpecifikItem = false;
         }
       }
       if (foundWantedItem) {
@@ -100,6 +102,10 @@ public class NPC {
   }
   public String getNpcName () {
     return npcName;
+  }
+
+  public boolean isWantsSpecifikItem () {
+    return wantsSpecifikItem;
   }
 
   public void setNpcCurrentRoom (Room npcCurrentRoom) {

@@ -111,7 +111,7 @@ public class Player {
             if (input.equals(shortItemName) || input.equals(longItemName)) {
 
                 if (itemToTryToEat instanceof Food) {
-                    UI.itemEaten(longItemName); //printer item spist
+                    UI.itemEaten(longItemName, health); //printer item spist
                     removeEatenFood(i, itemsPlayerCarry);
                     changeHealth(itemToTryToEat);
                 } else
@@ -190,19 +190,19 @@ public class Player {
                     UI.attackedEnemy();
                     i = allMonstersInMap.size();
                 } else if (i == allMonstersInMap.size() - 1) {
-                    UI.attackNotPossible();
+                    UI.attackNotPossibleNoNpc();
                 }
             }
         } else if (equippedWeapon != null) { // Hvis spiller holder et våben, men det er ikke brugeligt (i dette tilfælde kun RangedWeapon med ingen uses left)
             UI.ineffectualWeapon();
             equippedWeapon = null;
         } else
-            UI.attackNotPossible();
+            UI.attackNotPossibleNoWeapon();
     }
 
     public void takeDamage(int damage, String npcName) {
-        UI.playerTookDamage(damage, npcName);
         health -= damage;
+        UI.playerTookDamage(damage, npcName, health);
     }
 
 
