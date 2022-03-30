@@ -34,7 +34,7 @@ public class TheGame {
   //Bruger handling
   void userAction() {
     while(!(player.getPlayerWon() || player.getPlayerLost())) {
-      userInterface.typeDirectionOrLookAround();
+      userInterface.userNextMove();
       String input = userInterface.returnsUserInput();
       input = input.toLowerCase().trim();
       String keyWord;
