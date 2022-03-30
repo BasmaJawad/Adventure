@@ -186,7 +186,7 @@ public class Player {
                 NPC anNPC = allMonstersInMap.get(i);
                 Room npcCurrentRoom = anNPC.getNpcCurrentRoom();
                 if (npcCurrentRoom == currentRoom) {
-                    anNPC.respawnNPC();
+                    anNPC.respawnNPC(currentRoom, anNPC, allMonstersInMap);
                     UI.attackedEnemy();
                     i = allMonstersInMap.size();
                 } else if (i == allMonstersInMap.size() - 1) {

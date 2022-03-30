@@ -39,15 +39,21 @@ public class NPC {
 
 
 
-  public void respawnNPC () {
+  public void respawnNPC (Room playerCurrentRoom, NPC anNpc, ArrayList<NPC> allMonstersInMap) {
     if(!npcName.equals("a rat")) {
       Room pastRoom = npcCurrentRoom;
       setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
       while (pastRoom == npcCurrentRoom) {
         setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
       }
+    } else {
+      if (npcCurrentRoom == playerCurrentRoom) {
+        allMonstersInMap.remove(anNpc);
+      }
+      }
+
     }
-  }
+
 
 
   public void picksWantedItem () {
