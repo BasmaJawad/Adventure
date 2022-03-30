@@ -9,12 +9,15 @@ public class Player {
     private char playerDirection;
     private boolean playerWon;
     private boolean playerLost;
-    private int health = 50;
+    private int health;
+    private int standardHealth;
     private Weapon equippedWeapon;
 
 
-    public Player(UserInterface UI) {
+    public Player(UserInterface UI, int health) {
         this.UI = UI;
+        this.health = health;
+        standardHealth = health;
     }
 
     void pickOrDropItem(boolean isPicked) {
@@ -186,6 +189,8 @@ public class Player {
                     anNPC.respawnNPC();
                     UI.attackedEnemy();
                     i = allMonstersInMap.size();
+                } else if (i == allMonstersInMap.size() - 1) {
+                    UI.attackNotPossible();
                 }
             }
         } else if (equippedWeapon != null) { // Hvis spiller holder et våben, men det er ikke brugeligt (i dette tilfælde kun RangedWeapon med ingen uses left)
@@ -218,6 +223,7 @@ public class Player {
         playerLost = false;
         currentRoom = startRoom;
         if (replayMap) {
+            setHealth(standardHealth);
             clearPlayerInventory();
         }
     }

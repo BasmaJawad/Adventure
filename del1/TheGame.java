@@ -7,7 +7,7 @@ import static java.lang.Runtime.getRuntime;
 public class TheGame {
   private final Map map = new Map();
   private final UserInterface userInterface = new UserInterface();
-  private final Player player = new Player(userInterface);
+  private final Player player = new Player(userInterface, 50);
 
   private Room winnerRoom;
   private Room startRoom;
@@ -21,7 +21,7 @@ public class TheGame {
     map.createRooms();
     winnerRoom = map.getRoom(winnerRoomNum);
     startRoom = map.getRoom(startRoomNum);
-    map.addItemsAndNpcsToRooms();   //adder items til rooms
+    map.addItemsToRooms();   //adder items til rooms
     player.resetPlayer(startRoom, true);
     userInterface.printIntroduction(player.getCurrentRoom());
   }
@@ -138,7 +138,7 @@ public class TheGame {
     Item winnerItem = map.getWinnerItem();
     for (int i = 0; i < numOfItems; i++) {
         Item roomItem = startRoom.getItemsInRoom().get(i);
-        if (roomItem.getClass() == winnerItem.getClass()) {
+        if (roomItem == winnerItem) {
           userInterface.winnerOutput();
           player.setPlayerWon(true);
         }

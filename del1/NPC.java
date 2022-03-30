@@ -6,7 +6,7 @@ import java.util.Random;
 public class NPC {
   private Room npcCurrentRoom;
   private boolean wantsSpecifikItemClass = false;
-  private Item wantedItemClass;
+  private Item wantedItem;
   private ArrayList<Item> npcInventory = new ArrayList<>();
   private ArrayList<Room> allRoomsInAMap;
   private final Random random = new Random();
@@ -17,7 +17,7 @@ public class NPC {
   public NPC (ArrayList<Room> allRoomsInAMap, Item wantedItemClass, Item winnerItem) {
     npcName = "an old man";
     this.allRoomsInAMap = allRoomsInAMap;
-    this.wantedItemClass = wantedItemClass;
+    this.wantedItem = wantedItemClass;
     wantsSpecifikItemClass = true;
     Room npcStartRoom = getRandomRoom(allRoomsInAMap);
     Room mapStartRoom = allRoomsInAMap.get(0);
@@ -33,7 +33,7 @@ public class NPC {
     this.npcName = npcName;
     this.allRoomsInAMap = allRoomsInAMap;
     npcCurrentRoom = getRandomRoom(allRoomsInAMap);
-    npcDamage = 1;
+    npcDamage = 20;
   }
 
 
@@ -56,23 +56,23 @@ public class NPC {
       boolean foundWantedItem = false;
       for (int i = numOfItems - 1; i >= 0; i--) {
         Item roomItem = roomInventory.get(i);
-        if (roomItem.getClass() == wantedItemClass.getClass()) {
+        if (roomItem == wantedItem) {
           npcInventory.add(roomItem);
           npcCurrentRoom.getItemsInRoom().remove(roomItem);
           foundWantedItem = true;
         }
       }
       if (foundWantedItem) {
-        dropAllItemsButWantedTypes();
+        dropWinnerItem();
       }
     }
   }
 
-  public void dropAllItemsButWantedTypes() {
+  public void dropWinnerItem() {
     if (npcInventory.size() > 0) {
       for (int i = npcInventory.size() - 1; i >= 0; i--) {
         Item npcItem = npcInventory.get(i);
-        if (npcItem.getClass() != wantedItemClass.getClass()) {
+        if (npcItem != wantedItem) {
           npcCurrentRoom.getItemsInRoom().add(npcItem);
           npcInventory.remove(npcItem);
         }

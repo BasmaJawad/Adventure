@@ -7,32 +7,19 @@ public class Map {
 
     private final RoomDescriptions roomDescriptions = new RoomDescriptions();
 
-    private final Room room1 = new Room("Room One", roomDescriptions.room1);
-    private final Room room2 = new Room("Room Two", roomDescriptions.room2);
-    private final Room room3 = new Room("Room Three", roomDescriptions.room3);
-    private final Room room4 = new Room("Room Four", roomDescriptions.room4);
-    private final Room room5 = new Room("Room Five", roomDescriptions.room5);
-    private final Room room6 = new Room("Room Six", roomDescriptions.room6);
-    private final Room room7 = new Room("Room Seven", roomDescriptions.room7);
-    private final Room room8 = new Room("Room Eight", roomDescriptions.room8);
-    private final Room room9 = new Room("Room nine", roomDescriptions.room9);
+    private final Room room1 = new Room("an underground basement", roomDescriptions.room1);
+    private final Room room2 = new Room("an empty room", roomDescriptions.room2);
+    private final Room room3 = new Room("a huge laboratorie", roomDescriptions.room3);
+    private final Room room4 = new Room("a big factory room", roomDescriptions.room4);
+    private final Room room5 = new Room("a control room for monitoring", roomDescriptions.room5);
+    private final Room room6 = new Room("a long hallway", roomDescriptions.room6);
+    private final Room room7 = new Room("a cafeteria", roomDescriptions.room7);
+    private final Room room8 = new Room("a locker room", roomDescriptions.room8);
+    private final Room room9 = new Room("an office", roomDescriptions.room9);
 
     private final Room[] roomArray = {room1, room2, room3, room4, room5, room6, room7, room8, room9};
     private final ArrayList<Room> roomArrayList = new ArrayList<>(List.of(roomArray));
 
-    //private final Item healingPotion1 = new Item("healing potion", "magic healing potion 1");
-    //private final Item healingPotion2 = new Item("healing potion", "magic healing potion 2");
-    //private final Item healingPotion3 = new Item("healing potion", "magic healing potion 3");
-    //private final Item healingPotion4 = new Item("healing potion", "magic healing potion 4");
-
-   // private final MeleeWeapon mWeapon1 = new MeleeWeapon("Sword", "Iron sword");
-   // private final MeleeWeapon mWeapon2 = new MeleeWeapon("Axe", "Iron axe");
-   // private final RangedWeapon rWeapon1 = new RangedWeapon("Bow","Bow and arrows", 2);
-
-    //private final Food food1 = new Food("Chicken", "delicious chicken masala", 10);
-   // private final Food food2 = new Food("Apple", "sour apple", 5);
-
-   // private final Item winnerItem = new Item("Holy Grail", "The Holy Grail");
 
     private final Food food1 = new Food("Chocolate", "Chocolate bar",5);
     private final Food food2 = new Food("Black syringe", "black syringe with liquid",-15); //food eller weapon?
@@ -50,10 +37,10 @@ public class Map {
     private final RangedWeapon rWeapon2 = new RangedWeapon("Matches","Box of matches",3);
     private final RangedWeapon rWeapon3 = new RangedWeapon("Deodorant","Strong deodorant",5);
 
-    private final Item NPCwantedItem = new Item("Box", "box labeled 'Margaret's dentures'");
+    private final Item npcWantedItem = new Item("Box", "box labeled 'Margaret's dentures'");
     private final Item winnerItem = new Item("Key", "Big green key");
 
-    private final NPC oldMan = new NPC(roomArrayList, NPCwantedItem, winnerItem);
+    private final NPC oldMan = new NPC(roomArrayList, npcWantedItem, winnerItem);
 
     private final NPC rat1 = new NPC(roomArrayList, "a rat1");
     private final NPC rat2 = new NPC(roomArrayList, "a rat2");
@@ -76,7 +63,7 @@ public class Map {
 
     }
 
-    void addItemsAndNpcsToRooms(){ //sætter items i et Item arrayList
+    void addItemsToRooms(){ //sætter items i et Item arrayList
 
         room1.setItemsInRoom(mWeapon1);
         room1.setItemsInRoom(food1);
@@ -86,7 +73,7 @@ public class Map {
         room3.setItemsInRoom(food4);
         room3.setItemsInRoom(rWeapon1);
 
-        room4.setItemsInRoom(mWeapon1);
+        room4.setItemsInRoom(mWeapon2);
         room5.setItemsInRoom(rWeapon2);
 
         room7.setItemsInRoom(food5);
@@ -95,7 +82,7 @@ public class Map {
         room7.setItemsInRoom(mWeapon3);
 
         room8.setItemsInRoom(rWeapon3);
-        room8.setItemsInRoom(NPCwantedItem);
+        room8.setItemsInRoom(npcWantedItem);
 
     }
 

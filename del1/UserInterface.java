@@ -35,18 +35,22 @@ public class UserInterface {
         String name = userName();
         System.out.println("\nWelcome to Adventure Game, " + name + "!\033[0m\n");
         System.out.println("""
-                You need to get/do 'missing winning scenario'.
+                You are trapped within a factory and need to escape and not be eaten by rats.
+                The only way out is through the green trapdoor using the green key.
+                
                 Type a direction \033[1;97mNorth, South, West or East\033[0m.
                 Type \033[1;97m'Look around' \033[0m to get a description of the room.
-                Type \033[1;97m'Grab' \033[0mto collect items in a room.
-                Type \033[1;97m'Inventory' \033[0mto see the items you have.
+                Type \033[1;97m'Grab' \033[0mto collect items in a room to your inventory.
+                Type \033[1;97m'Drop' \033[0mto drop items in from your inventory to a room.
+                Type \033[1;97m'Inventory' \033[0mto see the items you have and what weapon is equiped, if there is an equipped weapon.
                 Type \033[1;97m'Health' \033[0mto check your healthpoints.
                 Type \033[1;97m'Equip'/'Unequip'\033[0m to equip/unequip a weapon from your inventory.
                 Type \033[1;97m'Eat'\033[0m to eat food from your inventory.
-                Type \033[1;97m'Attack'\033[0m to attack with your equipped weapon.
+                Type \033[1;97m'Attack'\033[0m to attack a hostile creature with your equipped weapon.
                 Type \033[1;97m'Help' \033[0mto get the controls of the game.
                 Type \033[1;97m'Exit' \033[0mto end the game.
-                You are Currently standing in:""" + " \033[1;97m" + currentRoom.getName() + "\033[0m");
+                
+                You are Currently standing in""" + " \033[1;97m" + currentRoom.getName() + "\033[0m");
     }
 
 
@@ -54,9 +58,15 @@ public class UserInterface {
         System.out.println("""
                 \nGame controls:
                 Move direction -> \033[1;97m'North', 'South', 'West' or 'East'\033[0m.
-                Pick up item -> \033[1;97m'Grab' \033[0m(type 'All' to pick up all the items).
-                Items in your inventory \033[1;97m'Inventory'\033[0m.
                 Information about the room you are standing in -> \033[1;97m 'Look'\033[0m.
+                Pick up item -> \033[1;97m'Grab' \033[0m(type 'All' to pick up all the items in a room).
+                Drop item -> \033[1;97m'Drop' \033[0m(type 'All' to drop up all the items in your inventory).
+                See the items in your inventory -> \033[1;97m'Inventory'\033[0m.
+                See the amount of health you got -> \033[1;97m'Health'\033[0m.
+                To equip or unequip a weapon -> \033[1;97m'Equip/Unequip'\033[0m.
+                To eat food within your inventory -> \033[1;97m'Eat'\033[0m.
+                To attack a hostile enemy that's within the same room as you -> \033[1;97m'Attack'\033[0m.
+                
                 List of commands -> \033[1;97m'Help'\033[0m.
                 End game -> \033[1;97m'Exit'\033[0m.""");
     }
@@ -224,11 +234,11 @@ public class UserInterface {
     }
 
     void winnerOutput() {
-        System.out.println("\n\033[1;32mYou won the game! \n"+resetColor);
+        System.out.println("\n\033[1;32m" + userName + " opened the green trapdoor and successfully escaped the factory! \n"+resetColor);
     }
 
     void loserOutput() {
-        System.out.println("\n\033[1;31mYou lost the game! \n" + resetColor);
+        System.out.println("\n\033[1;31m" + userName + " was eaten by rats and now rests for all time within the factory. \n" + resetColor);
     }
 
     void playAgain() {
