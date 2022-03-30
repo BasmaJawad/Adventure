@@ -56,23 +56,23 @@ public class UserInterface {
 
     void printCommand() {
         System.out.println("""
-                \nGame controls:
-                Move direction -> \033[1;97m'North', 'South', 'West' or 'East'\033[0m.
+                \n\033[1;97mGAME CONTROLS:\033[1;97m.
+                Move direction -> \033[1;97m'North', 'South', 'West' or 'East'\033[1;97m.
                 Information about the room you are standing in -> \033[1;97m 'Look'\033[0m.
                 Pick up item -> \033[1;97m'Grab' \033[0m(type 'All' to pick up all the items in a room).
                 Drop item -> \033[1;97m'Drop' \033[0m(type 'All' to drop up all the items in your inventory).
-                See the items in your inventory -> \033[1;97m'Inventory'\033[0m.
-                See the amount of health you got -> \033[1;97m'Health'\033[0m.
-                To equip or unequip a weapon -> \033[1;97m'Equip/Unequip'\033[0m.
-                To eat food within your inventory -> \033[1;97m'Eat'\033[0m.
-                To attack a hostile enemy that's within the same room as you -> \033[1;97m'Attack'\033[0m.
+                Items in your inventory -> \033[1;97m'Inventory'\033[0m.
+                Your healthpoints -> \033[1;97m'Health'\033[0m.
+                Equip or unequip a weapon -> \033[1;97m'Equip/Unequip'\033[0m.
+                Eat food within your inventory -> \033[1;97m'Eat'\033[0m.
+                Attack a hostile enemy that's within the same room as you -> \033[1;97m'Attack'\033[0m.
                 
                 List of commands -> \033[1;97m'Help'\033[0m.
                 End game -> \033[1;97m'Exit'\033[0m.""");
     }
 
 
-    void typeDirectionOrLookAround() {
+    void userNextMove() {
         System.out.print("\nNext move: ");
     }
 
@@ -166,7 +166,7 @@ public class UserInterface {
 
 
     void printHealth(int health) {
-        System.out.println("Your health is: " + greenColor+health+resetColor);
+        System.out.println("Health points: " + greenColor+health+resetColor);
     }
 
     void playerTookDamage (int damage, String npcName) {
