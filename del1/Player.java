@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Player {
     private UserInterface UI;
     private Room currentRoom;
+    private Weapon equippedWeapon;
     private ArrayList<Item> itemsPlayerCarry = new ArrayList<>();
     private char playerDirection;
     private boolean playerWon;
     private boolean playerLost;
     private int health;
     private int standardHealth;
-    private Weapon equippedWeapon;
 
 
     public Player(UserInterface UI, int health) {
@@ -170,9 +170,7 @@ public class Player {
             equippedWeapon = null;
     }
 
-    Item getEquippedWeapon() {
-        return equippedWeapon;
-    }
+
 
     void unEquipWeapon() {
         UI.unEquip(equippedWeapon.getItemNameLong());
@@ -236,6 +234,10 @@ public class Player {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    Item getEquippedWeapon() {
+        return equippedWeapon;
     }
 
     public void setDirection(char playerDirection) {
