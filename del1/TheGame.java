@@ -11,11 +11,9 @@ public class TheGame {
 
   private Room winnerRoom;
   private Room startRoom;
-  private int winnerRoomNum = 4;
+  private int winnerRoomNum = 0;
   private int startRoomNum = 0;
 
-
-  // private boolean playerWon;
 
   void createGame(){
     map.createRooms();
@@ -135,10 +133,10 @@ public class TheGame {
   }
 
   public void playerWon() {
-    int numOfItems = startRoom.getItemsInRoom().size();
+    int numOfItems = winnerRoom.getItemsInRoom().size();
     Item winnerItem = map.getWinnerItem();
     for (int i = 0; i < numOfItems; i++) {
-        Item roomItem = startRoom.getItemsInRoom().get(i);
+        Item roomItem = winnerRoom.getItemsInRoom().get(i);
         if (roomItem == winnerItem) {
           userInterface.winnerOutput();
           player.setPlayerWon(true);
