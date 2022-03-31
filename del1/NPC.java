@@ -5,11 +5,10 @@ import java.util.Random;
 
 public class NPC {
   private Room npcCurrentRoom;
-  private boolean wantsSpecifikItem = false;
   private Item wantedItem;
+  private boolean wantsSpecifikItem = false;
   private ArrayList<Item> npcInventory = new ArrayList<>();
   private ArrayList<Room> allRoomsInAMap;
-  private final Random random = new Random();
   private String npcName;
   private int npcDamage;
 
@@ -39,17 +38,15 @@ public class NPC {
 
 
 
-  public void respawnNPC (Room playerCurrentRoom, NPC anNpc, ArrayList<NPC> allMonstersInMap) {
-    if(!npcName.equals("a rat")) {
+  public void respawnNPC (ArrayList<NPC> allMonstersInMap) {
+    if(!npcName.contains("a rat")) {
       Room pastRoom = npcCurrentRoom;
       setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
       while (pastRoom == npcCurrentRoom) {
         setNpcCurrentRoom(getRandomRoom(allRoomsInAMap));
       }
     } else {
-      if (npcCurrentRoom == playerCurrentRoom) {
-        allMonstersInMap.remove(anNpc);
-      }
+        allMonstersInMap.remove(this);
       }
 
     }
@@ -91,6 +88,7 @@ public class NPC {
   // Skal få fat i et tilfældigt rum i den ArrayListe der holder rum i et Map
 
   public Room getRandomRoom (ArrayList<Room> allRoomsInAMap) {
+    Random random = new Random();
     int roomAmount = allRoomsInAMap.size();
     int randomNum = random.nextInt(roomAmount);
     Room randomRoom = allRoomsInAMap.get(randomNum); //finder rum-indexet med et random tal
