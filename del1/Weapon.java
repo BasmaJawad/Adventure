@@ -14,14 +14,6 @@ public class Weapon extends Item {
     }
 
 
-    int getWeaponUses(){
-        return weaponUses;
-    }
-
-    void setWeaponUses(int weaponUses){
-        this.weaponUses = weaponUses;
-    }
-
     public boolean canUse(Weapon equippedWeapon, UserInterface UI){
         if (equippedWeapon instanceof RangedWeapon){
             int remainingUses = equippedWeapon.getWeaponUses();
@@ -37,5 +29,13 @@ public class Weapon extends Item {
         }
         else
             return true;
+    }
+
+    // Getters og Setters
+    int getWeaponUses(){
+        return weaponUses;
+    }
+    void setWeaponUses(int weaponUses){
+        this.weaponUses = weaponUses;
     }
 }
